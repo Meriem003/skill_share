@@ -1,0 +1,250 @@
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 160px);
+  background-color: var(--light-gray);
+}
+
+.auth-card {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  width: 100%;
+  max-width: 500px;
+  padding: 40px;
+  transition: transform 0.3s ease;
+}
+
+.auth-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.auth-header h1 {
+  font-size: 2.2rem;
+  color: var(--black);
+  margin-bottom: 15px;
+}
+
+.auth-header p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.auth-form {
+  margin-bottom: 30px;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--black);
+  transition: all 0.3s ease;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--medium-gray);
+  border-radius: var(--border-radius);
+  background-color: var(--white);
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--primary-dark);
+  box-shadow: 0 0 0 4px rgba(232, 169, 169, 0.15);
+}
+
+.forgot-password {
+  display: block;
+  text-align: right;
+  font-size: 0.9rem;
+  margin-top: 8px;
+  color: var(--primary-dark);
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+.social-auth {
+  margin-top: 40px;
+  text-align: center;
+  position: relative;
+}
+
+.social-auth p {
+  font-size: 0.95rem;
+  color: #777;
+  margin-bottom: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-auth p::before,
+.social-auth p::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: var(--medium-gray);
+}
+
+.social-auth p::before {
+  margin-right: 15px;
+}
+
+.social-auth p::after {
+  margin-left: 15px;
+}
+
+.social-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.social-buttons .btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-social {
+  background-color: var(--white);
+  border: 2px solid var(--medium-gray);
+  color: var(--dark-gray);
+}
+
+.btn-social:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-google {
+  color: #db4437;
+}
+
+.btn-google:hover {
+  background-color: rgba(219, 68, 55, 0.05);
+  border-color: rgba(219, 68, 55, 0.3);
+}
+
+.btn-facebook {
+  color: #4267b2;
+}
+
+.btn-facebook:hover {
+  background-color: rgba(66, 103, 178, 0.05);
+  border-color: rgba(66, 103, 178, 0.3);
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.auth-footer a {
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.skill-checkbox {
+  display: flex;
+  align-items: center;
+  background-color: var(--light-gray);
+  padding: 10px;
+  border-radius: var(--border-radius);
+  transition: all 0.2s ease;
+}
+
+.skill-checkbox:hover {
+  background-color: var(--primary-light);
+}
+
+.skill-checkbox input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--medium-gray);
+  border-radius: 4px;
+  margin-right: 10px;
+  position: relative;
+  cursor: pointer;
+}
+
+.skill-checkbox input[type="checkbox"]:checked {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+.skill-checkbox input[type="checkbox"]:checked::after {
+  content: "✓";
+  position: absolute;
+  color: white;
+  font-size: 14px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.skill-checkbox label {
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+/* Button styling */
+.auth-form .btn-primary {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.1rem;
+  margin-top: 10px;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .auth-card {
+    padding: 30px 20px;
+    margin: 0 15px;
+  }
+
+  .social-buttons {
+    flex-direction: column;
+  }
+}
+
