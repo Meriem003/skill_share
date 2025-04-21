@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de bord - SkillShare</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/dashboard.css">
+    @vite (['resources/css/style.css']) 
+    @vite (['resources/css/dashboard.css'])
 </head>
 <body>
-    <?php include 'includes/header.php'; ?>
+@include('includes.header')
 
     <main class="main-content">
         <div class="dashboard-container">
@@ -279,9 +279,9 @@
         </div>
     </main>
 
-    <?php include 'includes/footer.php'; ?>
-    <script src="js/main.js"></script>
-    <script src="js/dashboard.js"></script>
+    @include('includes.footer')
+    @vite (['resources/js/main.js'])
+    @vite (entrypoints: ['resources/js/dashboard.js'])
 </body>
 </html>
 

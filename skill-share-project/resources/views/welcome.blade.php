@@ -10,7 +10,7 @@
 <body>
 @include('includes.header')
 
-    <main class="main-content">
+    <main class="main-content" style=" padding: 0px;">
         <section class="hero">
             <div class="container">
                 <div class="hero-content">
@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="hero-image">
-                    <img src="images/hero-image.svg" alt="SkillShare illustration">
+                    <!-- <img src=".../../../logo.png" alt="SkillShare illustration"> -->
                 </div>
             </div>
         </section>
@@ -60,27 +60,27 @@
                 <h2>Témoignages d'utilisateurs</h2>
                 <div class="testimonials-slider">
                     <div class="testimonial">
-                        <div class="testimonial-content">
-                            <p>"Grâce à SkillShare, j'ai pu améliorer mes compétences en programmation et aider d'autres étudiants en mathématiques."</p>
-                        </div>
+
                         <div class="testimonial-author">
-                            <img src="images/user1.svg" alt="Photo de profil">
                             <div>
                                 <h4>Sophie Martin</h4>
                                 <p>Étudiante en informatique</p>
                             </div>
                         </div>
+                        <div class="testimonial-content">
+                            <p>"Grâce à SkillShare, j'ai pu améliorer mes compétences en programmation et aider d'autres étudiants en mathématiques."</p>
+                        </div>
                     </div>
                     <div class="testimonial">
-                        <div class="testimonial-content">
-                            <p>"La plateforme est intuitive et m'a permis de rencontrer des personnes partageant les mêmes centres d'intérêt que moi."</p>
-                        </div>
+                        
                         <div class="testimonial-author">
-                            <img src="images/user2.svg" alt="Photo de profil">
                             <div>
                                 <h4>Thomas Dubois</h4>
                                 <p>Étudiant en design</p>
                             </div>
+                        </div>
+                        <div class="testimonial-content">
+                            <p>"La plateforme est intuitive et m'a permis de rencontrer des personnes partageant les mêmes centres d'intérêt que moi."</p>
                         </div>
                     </div>
                 </div>
@@ -95,12 +95,16 @@
             <div class="container">
                 <h2>Prêt à partager vos compétences ?</h2>
                 <p>Rejoignez notre communauté dès aujourd'hui et commencez à échanger des connaissances.</p>
-                <a href="register.php" class="btn btn-primary">Créer un compte</a>
+                <a href="{{ route('register') }}" class="btn btn-primary">Créer un compte</a>
             </div>
         </section>
     </main>
 
     @include('includes.footer')
+    @vite (['resources/css/main.css'])
+    @vite (['resources/js/home.js'])
+
+
 
 
 </body>

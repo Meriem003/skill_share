@@ -9,18 +9,18 @@
                 <div class="footer-column">
                     <h3>Navigation</h3>
                     <ul>
-                        <li><a href="index.php">Accueil</a></li>
-                        <li><a href="search.php">Rechercher</a></li>
-                        <li><a href="todo.php">To-Do Liste</a></li>
-                        <li><a href="user-dashboard.php">Tableau de bord</a></li>
+                        <li><a href="{{ route('home') }}">Accueil</a></li>
+                        <li><a href="{{ route('etudiant.search') }}">Rechercher</a></li>
+                        <li><a href="{{ route('etudiant.todo') }}">To-Do Liste</a></li>
+                        <li><a href="{{ route('etudiant.dashboard') }}">Tableau de bord</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>Compte</h3>
                     <ul>
-                        <li><a href="login.php">Connexion</a></li>
-                        <li><a href="register.php">Inscription</a></li>
-                        <li><a href="profile.php">Mon profil</a></li>
+                        <li><a href="{{ route('login') }}">Connexion</a></li>
+                        <li><a href="{{ route('register') }}">Inscription</a></li>
+                        <li><a href="{{ route('etudiant.profile') }}">Mon profil</a></li>
                         <li><a href="#">Paramètres</a></li>
                     </ul>
                 </div>
@@ -41,16 +41,10 @@
                     <input type="email" placeholder="Votre email" required>
                     <button type="submit" class="btn btn-primary">S'inscrire</button>
                 </form>
-                <div class="social-links">
-                    <a href="#" class="social-link">Facebook</a>
-                    <a href="#" class="social-link">Twitter</a>
-                    <a href="#" class="social-link">Instagram</a>
-                    <a href="#" class="social-link">LinkedIn</a>
-                </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2023 SkillShare. Tous droits réservés.</p>
+            <p>&copy; 2025 SkillShare.</p>
         </div>
     </div>
 </footer>

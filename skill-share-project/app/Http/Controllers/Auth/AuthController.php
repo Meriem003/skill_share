@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
-class RegisterController extends Controller
+class AuthController extends Controller
 {
     public function showRegistrationForm()
     {
@@ -35,7 +35,7 @@ class RegisterController extends Controller
         $user = User::create([
             'Fullname' => $request->fullname,
             'email' => $request->email,
-            'password' => $request->password, // Déjà hashé grâce à votre mutateur dans le modèle
+            'password' => Hash::make($request->password), // Déjà hashé grâce à votre mutateur dans le modèle
             'campus' => $request->campus,
             'role' => 'etudiant',
         ]);
@@ -63,6 +63,44 @@ class RegisterController extends Controller
         // Connexion automatique
         Auth::login($user);
 
-        return redirect()->route('dashboard')->with('success', 'Inscription réussie! Bienvenue sur SkillShare.');
-    }
+        return redirect()->route('etudiant.dashboard');            }
+
+            public function showLogin()
+            {
+                return view('auth.login');  // Assure-toi que tu as la vue 'auth.login'
+            }
+            public function login(Request $request)
+            {
+                // Validation des données de connexion
+                $credentials = $request->validate([
+                    'email' => 'required|email',
+                    'password' => 'required',
+                ]);
+            
+                if (Auth::attempt($credentials)) {
+                    $user = Auth::user();
+            
+                    // Redirection vers le dashboard en fonction du rôle
+                    if ($user->role === 'admin') {
+                        return redirect()->route('admin.dashboard');
+                    } elseif ($user->role === 'etudiant') {
+                        return redirect()->route('etudiant.dashboard');
+                    }
+            
+                    // Si l'utilisateur n'a pas de rôle ou est un autre type d'utilisateur
+                    return redirect()->route('home');
+                }
+            
+                return back()->withErrors([
+                    'email' => 'Identifiants invalides',
+                ]);
+            }
+            
+            
+
+            public function logout(Request $request)
+            {
+                Auth::logout();
+                return redirect('/');
+            }
 }

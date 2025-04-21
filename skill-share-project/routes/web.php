@@ -1,33 +1,45 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\UtilisateursController;
+use App\Http\Controllers\etudiants\EtudiantController;
+use App\Http\Controllers\etudiants\bookingController;
+use App\Http\Controllers\etudiants\notificationsController;
+use App\Http\Controllers\etudiants\todoController;
+use App\Http\Controllers\etudiants\searchController;
+use App\Http\Controllers\etudiants\profileController;
+
 
 // Page d'accueil
 Route::get('/', function () {
     return view('welcome');
-})->name('meryam');
+})->name('home');
 
-// Routes d'authentification
-    Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-    Route::post('/register', [RegisterController::class, 'register'])->name('register.submit');
-    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
+// Auth
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Route de déconnexion
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
-
-// Routes protégées pour les étudiants
-Route::middleware(['auth', 'role:etudiant'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    // Autres routes pour les étudiants
-});
-
-// Routes protégées pour les administrateurs
-Route::middleware(['auth', 'role:administrateur'])->prefix('admin')->group(function () {
-    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
-    // Autres routes pour les administrateurs
+// Dashboards avec Middleware de rôle
+Route::middleware(['auth'])->group(function () {
+    // Route Admin
+    Route::get('/dashboard/admin', [AdminController::class, 'index'])->middleware('role:admin')->name('admin.dashboard');
+    // Route Utilisateur
+    Route::get('/dashboard/utilisateur', [utilisateursController::class, 'index'])->middleware('role:admin')->name('admin.utilisateurs');
+    // Route Etudiant
+    Route::get('/dashboard/etudiant', [EtudiantController::class, 'index'])->middleware('role:etudiant')->name('etudiant.dashboard');
+    // Route booking
+    Route::get('/dashboard/booking', [bookingController::class, 'index'])->middleware('role:etudiant')->name('etudiant.booking');
+    // Route profile
+    Route::get('/dashboard/profile', [profileController::class, 'index'])->middleware('role:etudiant')->name('etudiant.profile');
+    // Route notification
+    Route::get('/dashboard/notification', [notificationsController::class, 'index'])->middleware('role:etudiant')->name('etudiant.notification');
+    // route todo
+    Route::get('/dashboard/todo', [todoController::class, 'index'])->middleware('role:etudiant')->name('etudiant.todo');
+    // route search
+    Route::get('/dashboard/search', [searchController::class, 'index'])->middleware('role:etudiant')->name('etudiant.search');
 });

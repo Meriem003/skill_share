@@ -46,22 +46,12 @@
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
                 </form>
-
-                <div class="social-auth">
-                    <p>Ou connectez-vous avec</p>
-                    <div class="social-buttons">
-                        <button class="btn btn-social btn-google">Google</button>
-                        <button class="btn btn-social btn-facebook">Facebook</button>
-                    </div>
-                </div>
-
                 <div class="auth-footer">
                     <p>Vous n'avez pas de compte ? <a href="{{ route('register') }}">Inscrivez-vous</a></p>
                 </div>
             </div>
         </div>
     </main>
-
     @include('includes.footer')
     <script src="js/main.js"></script>
 </body>

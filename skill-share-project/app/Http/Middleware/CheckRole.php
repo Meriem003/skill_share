@@ -5,27 +5,32 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
-
-
 
 class CheckRole
 {
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @param  string  $role
+     * @return \Illuminate\Http\Response
+     */
     public function handle(Request $request, Closure $next, $role)
     {
-        if (!Auth::check()) {
-            return redirect()->route('login');
-        }
+        if (Auth::check()) {
+            $user = Auth::user();
 
-        $user = Auth::user();
+            // Vérification directe du rôle dans la base de données
+            if ($role === 'admin' && $user->role !== 'admin') {
+                abort(403, 'Accès interdit');
+            }
 
-        // Vérification des rôles
-        if ($role === 'admin' ) {
-            return redirect()->route('dashboard')->with('error', 'Accès refusé. Vous n\'avez pas les permissions nécessaires.');
-        }
-
-        if ($role === 'etudiant') {
-            return redirect()->route('admin.dashboard')->with('error', 'Accès refusé. Cette page est réservée aux étudiants.');
+            if ($role === 'etudiant' && $user->role !== 'etudiant') {
+                abort(403, 'Accès interdit');
+            }
+        } else {
+            return redirect()->route('login'); // Redirige vers la page de connexion si l'utilisateur n'est pas authentifié
         }
 
         return $next($request);

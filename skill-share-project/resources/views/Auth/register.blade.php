@@ -74,13 +74,6 @@
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">S'inscrire</button>
     </form>
-    <div class="social-auth">
-                    <p>Ou inscrivez-vous avec</p>
-                    <div class="social-buttons">
-                        <button class="btn btn-social btn-google">Google</button>
-                        <button class="btn btn-social btn-facebook">Facebook</button>
-                    </div>
-                </div>
                 <div class="auth-footer">
                     <p>Vous avez déjà un compte ? <a href="login.php">Connectez-vous</a></p>
                 </div>
