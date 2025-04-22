@@ -9,7 +9,7 @@
 </head>
 <body>
 @include('includes.header')
-<main class="main-content">
+<main class="main-content" style="padding: 0;">
         <div class="admin-container">
             <div class="admin-sidebar">
                 <div class="admin-profile">
@@ -20,35 +20,29 @@
                     </div>
                 </div>
                 <nav class="admin-nav">
-                    <ul>
+                <ul>
                         <li class="active">
-                            <a href="#dashboard">
+                            <a href="{{ route('admin.dashboard') }}">
                                 <span class="icon">📊</span>
                                 <span>Tableau de bord</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#users">
-                                <span class="icon">👥</span>
-                                <span>Utilisateurs</span>
-                            </a>
+                        <a href="{{ route('admin.utilisateurs') }}">
+                            <span class="icon">👥</span>
+                            <span>Utilisateurs</span>
+                        </a>
                         </li>
                         <li>
-                            <a href="#sessions">
+                        <a href="{{ route('admin.sessions') }}">
                                 <span class="icon">📚</span>
                                 <span>Sessions</span>
                             </a>
                         </li>
                         <li>
-                            <a href="#reports">
+                        <a href="{{ route('admin.compétences') }}">
                                 <span class="icon">📝</span>
-                                <span>Rapports</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#settings">
-                                <span class="icon">⚙️</span>
-                                <span>Paramètres</span>
+                                <span>compétence</span>
                             </a>
                         </li>
                     </ul>
@@ -56,17 +50,6 @@
             </div>
             
             <div class="admin-content">
-                <div class="admin-header">
-                    <h1>Tableau de bord administrateur</h1>
-                    <div class="admin-actions">
-                        <button class="btn btn-secondary">
-                            <span class="icon">📥</span> Exporter les données
-                        </button>
-                        <button class="btn btn-primary">
-                            <span class="icon">✉️</span> Envoyer une notification
-                        </button>
-                    </div>
-                </div>
                 <div class="admin-section">
                     <div class="section-header">
                         <h2>Gestion des utilisateurs</h2>
@@ -77,9 +60,6 @@
                                     <span class="icon">🔍</span>
                                 </button>
                             </div>
-                            <button class="btn btn-primary">
-                                <span class="icon">➕</span> Ajouter un utilisateur
-                            </button>
                         </div>
                     </div>
                     <div class="users-table-container">

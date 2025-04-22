@@ -15,11 +15,8 @@
             <div class="dashboard-header">
                 <h1>Tableau de bord</h1>
                 <div class="dashboard-actions">
-                    <button class="btn btn-secondary">
-                        <span class="icon">📅</span> Calendrier
-                    </button>
                     <button class="btn btn-primary">
-                        <span class="icon">➕</span> Nouvelle session
+                    <a href="{{ route('etudiant.search') }}">ajouté une session</a>
                     </button>
                 </div>
             </div>
@@ -60,7 +57,6 @@
                     <div class="dashboard-card upcoming-sessions">
                         <div class="card-header">
                             <h2>Sessions à venir</h2>
-                            <a href="#" class="view-all">Voir tout</a>
                         </div>
                         <div class="card-content">
                             <div class="session-item">
@@ -111,10 +107,13 @@
                         </div>
                     </div>
                     
-                    <div class="dashboard-card todo-preview">
+                </div>
+                
+                <div class="dashboard-column">
+                <div class="dashboard-card todo-preview">
                         <div class="card-header">
                             <h2>To-Do Liste</h2>
-                            <a href="todo.php" class="view-all">Voir tout</a>
+                            <a href="{{ route('etudiant.todo') }}" class="view-all">Voir tout</a>
                         </div>
                         <div class="card-content">
                             <div class="todo-progress-bar">
@@ -155,123 +154,19 @@
                                     </div>
                                     <div class="todo-priority low"></div>
                                 </div>
-                            </div>
-                            <a href="todo.php" class="btn btn-secondary btn-sm btn-block">Gérer mes tâches</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="dashboard-column">
-                    <div class="dashboard-card activity-feed">
-                        <div class="card-header">
-                            <h2>Activité récente</h2>
-                        </div>
-                        <div class="card-content">
-                            <div class="activity-item">
-                                <div class="activity-icon" style="background-color: #F8C8DC;">⭐</div>
-                                <div class="activity-content">
-                                    <p><strong>Thomas Dubois</strong> vous a donné une évaluation 5 étoiles</p>
-                                    <p class="activity-meta">Il y a 2 heures</p>
-                                </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon" style="background-color: #E6A4B4;">📚</div>
-                                <div class="activity-content">
-                                    <p>Vous avez complété une session <strong>Design d'interfaces</strong> avec Emma Petit</p>
-                                    <p class="activity-meta">Il y a 1 jour</p>
-                                </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon" style="background-color: #F8C8DC;">🏆</div>
-                                <div class="activity-content">
-                                    <p>Vous avez obtenu le badge <strong>Top Mentor</strong></p>
-                                    <p class="activity-meta">Il y a 2 jours</p>
-                                </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon" style="background-color: #E6A4B4;">🧠</div>
-                                <div class="activity-content">
-                                    <p>Vous avez réservé une session <strong>Bases du Python</strong> avec Lucas Martin</p>
-                                    <p class="activity-meta">Il y a 3 jours</p>
-                                </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon" style="background-color: #F8C8DC;">👥</div>
-                                <div class="activity-content">
-                                    <p><strong>Sophie Martin</strong> a réservé une session avec vous</p>
-                                    <p class="activity-meta">Il y a 4 jours</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="dashboard-card leaderboard">
-                        <div class="card-header">
-                            <h2>Classement</h2>
-                            <a href="#" class="view-all">Voir tout</a>
-                        </div>
-                        <div class="card-content">
-                            <div class="leaderboard-tabs">
-                                <button class="leaderboard-tab active" data-tab="campus">Mon campus</button>
-                                <button class="leaderboard-tab" data-tab="global">Global</button>
-                            </div>
-                            <div class="leaderboard-list">
-                                <div class="leaderboard-item">
-                                    <div class="leaderboard-rank">1</div>
-                                    <div class="leaderboard-user">
-                                        <img src="images/user1.svg" alt="Photo de profil">
-                                        <div>
-                                            <h4>Sophie Martin</h4>
-                                            <p>Campus de Paris</p>
-                                        </div>
+                                <div class="todo-item">
+                                    <div class="todo-checkbox">
+                                        <input type="checkbox" id="dashboard-todo-3">
+                                        <label for="dashboard-todo-3"></label>
                                     </div>
-                                    <div class="leaderboard-points">1250 pts</div>
-                                </div>
-                                <div class="leaderboard-item current-user">
-                                    <div class="leaderboard-rank">2</div>
-                                    <div class="leaderboard-user">
-                                        <img src="images/default-avatar.svg" alt="Photo de profil">
-                                        <div>
-                                            <h4>Marie Dupont (Vous)</h4>
-                                            <p>Campus de Paris</p>
-                                        </div>
+                                    <div class="todo-content">
+                                        <h4>Mettre à jour la photo de profil</h4>
+                                        <p>Aujourd'hui, 22:00</p>
                                     </div>
-                                    <div class="leaderboard-points">850 pts</div>
-                                </div>
-                                <div class="leaderboard-item">
-                                    <div class="leaderboard-rank">3</div>
-                                    <div class="leaderboard-user">
-                                        <img src="images/user3.svg" alt="Photo de profil">
-                                        <div>
-                                            <h4>Lucas Martin</h4>
-                                            <p>Campus de Paris</p>
-                                        </div>
-                                    </div>
-                                    <div class="leaderboard-points">720 pts</div>
-                                </div>
-                                <div class="leaderboard-item">
-                                    <div class="leaderboard-rank">4</div>
-                                    <div class="leaderboard-user">
-                                        <img src="images/user2.svg" alt="Photo de profil">
-                                        <div>
-                                            <h4>Thomas Dubois</h4>
-                                            <p>Campus de Lyon</p>
-                                        </div>
-                                    </div>
-                                    <div class="leaderboard-points">680 pts</div>
-                                </div>
-                                <div class="leaderboard-item">
-                                    <div class="leaderboard-rank">5</div>
-                                    <div class="leaderboard-user">
-                                        <img src="images/user4.svg" alt="Photo de profil">
-                                        <div>
-                                            <h4>Emma Petit</h4>
-                                            <p>Campus de Paris</p>
-                                        </div>
-                                    </div>
-                                    <div class="leaderboard-points">650 pts</div>
+                                    <div class="todo-priority low"></div>
                                 </div>
                             </div>
+                            <a href="{{ route('etudiant.todo') }}" class="btn btn-secondary btn-sm btn-block">Gérer mes tâches</a>
                         </div>
                     </div>
                 </div>

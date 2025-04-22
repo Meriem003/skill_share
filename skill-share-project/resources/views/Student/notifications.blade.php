@@ -13,19 +13,6 @@
         <div class="notifications-container">
             <div class="notifications-header">
                 <h1>Notifications</h1>
-                <div class="notifications-actions">
-                    <button class="btn btn-secondary" id="mark-all-read-btn">Tout marquer comme lu</button>
-                    <div class="notifications-filter">
-                        <label for="filter-notifications">Filtrer :</label>
-                        <select id="filter-notifications">
-                            <option value="all">Toutes</option>
-                            <option value="unread">Non lues</option>
-                            <option value="sessions">Sessions</option>
-                            <option value="reviews">Évaluations</option>
-                            <option value="badges">Badges</option>
-                        </select>
-                    </div>
-                </div>
             </div>
             
             <div class="notifications-list">
@@ -126,7 +113,6 @@
                     </div>
                 </div>
             </div>
-            
             <div class="notifications-pagination">
                 <button class="pagination-btn prev" disabled>Précédent</button>
                 <div class="pagination-numbers">
@@ -135,70 +121,6 @@
                     <button class="pagination-number">3</button>
                 </div>
                 <button class="pagination-btn next">Suivant</button>
-            </div>
-            
-            <div class="notifications-preferences">
-                <h3>Préférences de notification</h3>
-                <p>Personnalisez les types de notifications que vous souhaitez recevoir</p>
-                <form class="preferences-form">
-                    <div class="preference-group">
-                        <h4>Notifications par email</h4>
-                        <div class="preference-item">
-                            <div class="checkbox-wrapper">
-                                <input type="checkbox" id="email-sessions" checked>
-                                <label for="email-sessions">Sessions (confirmations, rappels)</label>
-                            </div>
-                        </div>
-                        <div class="preference-item">
-                            <div class="checkbox-wrapper">
-                                <input type="checkbox" id="email-reviews" checked>
-                                <label for="email-reviews">Évaluations et commentaires</label>
-                            </div>
-                        </div>
-                        <div class="preference-item">
-                            <div class="checkbox-wrapper">
-                                <input type="checkbox" id="email-badges" checked>
-                                <label for="email-badges">Badges et récompenses</label>
-                            </div>
-                        </div>
-                        <div class="preference-item">
-                            <div class="checkbox-wrapper">
-                                <input type="checkbox" id="email-newsletter">
-                                <label for="email-newsletter">Newsletter et actualités</label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="preference-group">
-                        <h4>Notifications sur la plateforme</h4>
-                        <div class="preference-item">
-                            <div class="checkbox-wrapper">
-                                <input type="checkbox" id="platform-sessions" checked>
-                                <label for="platform-sessions">Sessions (confirmations, rappels)</label>
-                            </div>
-                        </div>
-                        <div class="preference-item">
-                            <div class="checkbox-wrapper">
-                                <input type="checkbox" id="platform-reviews" checked>
-                                <label for="platform-reviews">Évaluations et commentaires</label>
-                            </div>
-                        </div>
-                        <div class="preference-item">
-                            <div class="checkbox-wrapper">
-                                <input type="checkbox" id="platform-badges" checked>
-                                <label for="platform-badges">Badges et récompenses</label>
-                            </div>
-                        </div>
-                        <div class="preference-item">
-                            <div class="checkbox-wrapper">
-                                <input type="checkbox" id="platform-todo" checked>
-                                <label for="platform-todo">Rappels de tâches</label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary">Enregistrer les préférences</button>
-                </form>
             </div>
         </div>
     </main>

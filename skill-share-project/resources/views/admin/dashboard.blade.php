@@ -9,8 +9,7 @@
 </head>
 <body>
 @include('includes.header')
-
-    <main class="main-content">
+<main class="main-content" style="padding: 0;">
         <div class="admin-container">
             <div class="admin-sidebar">
                 <div class="admin-profile">
@@ -23,7 +22,7 @@
                 <nav class="admin-nav">
                     <ul>
                         <li class="active">
-                            <a href="#dashboard">
+                            <a href="{{ route('admin.dashboard') }}">
                                 <span class="icon">📊</span>
                                 <span>Tableau de bord</span>
                             </a>
@@ -35,13 +34,13 @@
                         </a>
                         </li>
                         <li>
-                        <a href="{{ route('admin.sessiuns') }}">
+                        <a href="{{ route('admin.sessions') }}">
                                 <span class="icon">📚</span>
                                 <span>Sessions</span>
                             </a>
                         </li>
                         <li>
-                        <a href="{{ route('admin.compétence') }}">
+                        <a href="{{ route('admin.compétences') }}">
                                 <span class="icon">📝</span>
                                 <span>compétence</span>
                             </a>

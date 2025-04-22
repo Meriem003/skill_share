@@ -10,7 +10,7 @@
                 <ul class="nav-list">
                     <li class="nav-item"><a href="{{ route('home') }}" class="nav-link">Accueil</a></li>
                     <li class="nav-item"><a href="{{ route('etudiant.search') }}" class="nav-link">Rechercher</a></li>
-                    <li class="nav-item"><a href="{{ route('etudiant.todo') }}" class="nav-link">To-Do Liste</a></li>
+                    <li class="nav-item"><a href="{{ route('etudiant.booking') }}" class="nav-link">réservation</a></li>
                 </ul>
             </nav>
             <div class="header-actions">
@@ -23,7 +23,6 @@
                             <li><a href="{{ route('etudiant.profile') }}"><span class="icon">👤</span> Mon profil</a></li>
                             <li><a href="{{ route('etudiant.dashboard') }}"><span class="icon">📊</span> Tableau de bord</a></li>
                             <li><a href="{{ route('etudiant.notification') }}"><span class="icon">🔔</span> notifications</a></li>
-                            <li class="divider"></li>
                             <form id="logout-form-desktop" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
@@ -50,7 +49,6 @@
         <ul class="mobile-nav-list">
             <li class="mobile-nav-item"><a href="{{ route('home') }}" class="nav-link">Accueil</a></li>
             <li class="mobile-nav-item"><a href="{{ route('etudiant.search') }}" class="nav-link">Rechercher</a></li>
-            <li class="mobile-nav-item"><a href="{{ route('etudiant.todo') }}" class="nav-link">To-Do Liste</a></li>
         </ul>
     </nav>
     <div class="mobile-user-actions">

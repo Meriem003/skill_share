@@ -25,7 +25,13 @@
                             <span class="icon">🔍</span>
                         </button>
                     </div>
+                    
                     <div class="search-filters">
+                        <div class="filter-group">
+                            <label>full name</label>
+                            <!-- input -->
+                            <input type="text" id="name-filter" placeholder="Nom de l'utilisateur">
+                        </div>
                         <div class="filter-group">
                             <label>Catégorie</label>
                             <select id="category-filter">
@@ -48,16 +54,6 @@
                             </select>
                         </div>
                         <div class="filter-group">
-                            <label>Disponibilité</label>
-                            <select id="availability-filter">
-                                <option value="">Toutes les disponibilités</option>
-                                <option value="today">Aujourd'hui</option>
-                                <option value="tomorrow">Demain</option>
-                                <option value="this-week">Cette semaine</option>
-                                <option value="next-week">Semaine prochaine</option>
-                            </select>
-                        </div>
-                        <div class="filter-group">
                             <label>Note minimum</label>
                             <select id="rating-filter">
                                 <option value="">Toutes les notes</option>
@@ -71,116 +67,38 @@
             </div>
 
             <div class="search-results">
-                <div class="results-header">
-                    <h2>Résultats pour "JavaScript"</h2>
-                    <p><span id="results-count">24</span> résultats trouvés</p>
-                </div>
-                
                 <div class="results-list">
-                    <div class="result-card">
-                        <div class="result-user">
-                            <img src="images/user1.svg" alt="Photo de profil">
-                            <div class="user-info">
-                                <h3>Sophie Martin</h3>
-                                <p class="user-campus">Campus de Paris</p>
-                                <div class="user-rating">
-                                    <span class="stars">★★★★★</span>
-                                    <span class="rating-value">5.0</span>
-                                    <span class="rating-count">(15 avis)</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="result-skills">
-                            <h4>Compétences</h4>
-                            <div class="skills-list">
-                                <span class="skill-tag">JavaScript</span>
-                                <span class="skill-tag">React</span>
-                                <span class="skill-tag">Node.js</span>
-                            </div>
-                        </div>
-                        <div class="result-availability">
-                            <h4>Prochaines disponibilités</h4>
-                            <div class="availability-slots">
-                                <span class="availability-slot">Aujourd'hui, 14:00 - 16:00</span>
-                                <span class="availability-slot">Demain, 10:00 - 12:00</span>
-                                <span class="availability-slot">Vendredi, 15:00 - 17:00</span>
-                            </div>
-                        </div>
-                        <div class="result-actions">
-                            <button class="btn btn-primary">Réserver une session</button>
-                            <button class="btn btn-secondary">Voir le profil</button>
-                        </div>
-                    </div>
-                    
                     <div class="result-card">
                         <div class="result-user">
                             <img src="images/user2.svg" alt="Photo de profil">
                             <div class="user-info">
                                 <h3>Thomas Dubois</h3>
                                 <p class="user-campus">Campus de Lyon</p>
-                                <div class="user-rating">
-                                    <span class="stars">★★★★☆</span>
-                                    <span class="rating-value">4.7</span>
-                                    <span class="rating-count">(12 avis)</span>
-                                </div>
+
                             </div>
                         </div>
                         <div class="result-skills">
-                            <h4>Compétences</h4>
+                            <h4>Compétences à enseigner</h4>
                             <div class="skills-list">
                                 <span class="skill-tag">JavaScript</span>
                                 <span class="skill-tag">Vue.js</span>
                                 <span class="skill-tag">TypeScript</span>
                             </div>
                         </div>
-                        <div class="result-availability">
-                            <h4>Prochaines disponibilités</h4>
-                            <div class="availability-slots">
-                                <span class="availability-slot">Demain, 14:00 - 16:00</span>
-                                <span class="availability-slot">Jeudi, 10:00 - 12:00</span>
-                            </div>
-                        </div>
-                        <div class="result-actions">
-                            <button class="btn btn-primary">Réserver une session</button>
-                            <button class="btn btn-secondary">Voir le profil</button>
-                        </div>
-                    </div>
-                    
-                    <div class="result-card">
-                        <div class="result-user">
-                            <img src="images/user3.svg" alt="Photo de profil">
-                            <div class="user-info">
-                                <h3>Lucas Martin</h3>
-                                <p class="user-campus">Campus de Paris</p>
-                                <div class="user-rating">
-                                    <span class="stars">★★★★☆</span>
-                                    <span class="rating-value">4.5</span>
-                                    <span class="rating-count">(8 avis)</span>
-                                </div>
-                            </div>
-                        </div>
                         <div class="result-skills">
-                            <h4>Compétences</h4>
+                            <h4>Compétences à apprendre</h4>
                             <div class="skills-list">
                                 <span class="skill-tag">JavaScript</span>
-                                <span class="skill-tag">Angular</span>
-                                <span class="skill-tag">Firebase</span>
-                            </div>
-                        </div>
-                        <div class="result-availability">
-                            <h4>Prochaines disponibilités</h4>
-                            <div class="availability-slots">
-                                <span class="availability-slot">Vendredi, 14:00 - 16:00</span>
-                                <span class="availability-slot">Lundi, 10:00 - 12:00</span>
+                                <span class="skill-tag">Vue.js</span>
+                                <span class="skill-tag">TypeScript</span>
                             </div>
                         </div>
                         <div class="result-actions">
-                            <button class="btn btn-primary">Réserver une session</button>
-                            <button class="btn btn-secondary">Voir le profil</button>
+                            <button class="btn btn-primary"><a href="{{ route('etudiant.booking') }}">Réserver une session</a></button>
+                            <button class="btn btn-secondary"><a href="{{ route('etudiant.profile') }}">Voir le profil</a></button>
                         </div>
                     </div>
                 </div>
-                
                 <div class="pagination">
                     <button class="pagination-btn prev" disabled>Précédent</button>
                     <div class="pagination-numbers">

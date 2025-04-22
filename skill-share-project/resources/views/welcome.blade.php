@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="hero-image">
-                    <!-- <img src=".../../../logo.png" alt="SkillShare illustration"> -->
+                    <img src=".../../../logo-removebg-preview.png" alt="SkillShare illustration">
                 </div>
             </div>
         </section>
