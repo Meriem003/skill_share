@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recherche - SkillShare</title>
     @vite (['resources/css/style.css'])
+    @vite(['resources/css/header.css'])
     @vite (['resources/css/search.css'])
 </head>
 <body>
@@ -33,8 +34,19 @@
                             <input type="text" id="name-filter" placeholder="Nom de l'utilisateur">
                         </div>
                         <div class="filter-group">
-                            <label>Catégorie</label>
-                            <select id="category-filter">
+                            <label>Compétences à enseigner</label>
+                            <select id="Compétences-enseigner-filter">
+                                <option value="">Toutes les catégories</option>
+                                <option value="programmation">Programmation</option>
+                                <option value="design">Design</option>
+                                <option value="langues">Langues</option>
+                                <option value="mathematiques">Mathématiques</option>
+                                <option value="marketing">Marketing</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Compétences à apprendre</label>
+                            <select id="Compétences-apprendre-filter">
                                 <option value="">Toutes les catégories</option>
                                 <option value="programmation">Programmation</option>
                                 <option value="design">Design</option>
@@ -53,15 +65,6 @@
                                 <option value="bordeaux">Bordeaux</option>
                             </select>
                         </div>
-                        <div class="filter-group">
-                            <label>Note minimum</label>
-                            <select id="rating-filter">
-                                <option value="">Toutes les notes</option>
-                                <option value="4">4★ et plus</option>
-                                <option value="3">3★ et plus</option>
-                                <option value="2">2★ et plus</option>
-                            </select>
-                        </div>
                     </div>
                 </form>
             </div>
@@ -70,7 +73,6 @@
                 <div class="results-list">
                     <div class="result-card">
                         <div class="result-user">
-                            <img src="images/user2.svg" alt="Photo de profil">
                             <div class="user-info">
                                 <h3>Thomas Dubois</h3>
                                 <p class="user-campus">Campus de Lyon</p>

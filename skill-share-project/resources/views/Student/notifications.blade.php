@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notifications - SkillShare</title>
     @vite (['resources/css/style.css'])
+    @vite(['resources/css/header.css'])
     @vite (['resources/css/notifications.css'])
 </head>
 <body>

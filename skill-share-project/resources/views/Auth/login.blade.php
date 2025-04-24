@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion - SkillShare</title>
-    @vite (['resources/css/style.css']) 
+    @vite (['resources/css/style.css'])
+    @vite (['resources/css/header.css'])
     @vite (['resources/css/auth.css'])
 </head>
 <body>
     @include('includes.header')
-
     <main class="main-content">
         <div class="auth-container">
             <div class="auth-card">
@@ -17,7 +17,7 @@
                     <h1>Connexion</h1>
                     <p>Connectez-vous pour accéder à votre compte</p>
                 </div>
-                
+               
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -27,7 +27,7 @@
                     </ul>
                 </div>
                 @endif
-                
+               
                 <form action="{{ route('login.submit') }}" method="POST" class="auth-form">
                     @csrf
                     <div class="form-group">

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SkillShare - Partagez vos compétences</title>
     @vite (['resources/css/style.css']) 
+    @vite (['resources/css/header.css'])
     @vite (['resources/css/home.css'])
 </head>
 <body>

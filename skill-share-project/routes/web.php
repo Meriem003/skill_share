@@ -11,7 +11,7 @@ use App\Http\Controllers\etudiants\todoController;
 use App\Http\Controllers\etudiants\searchController;
 use App\Http\Controllers\etudiants\profileController;
 use App\Http\Controllers\admin\competenceController;
-use App\Http\Controllers\admin\sessionsAdminController;
+use App\Http\Controllers\admin\sessionsController;
 
 
 // Page d'accueil
@@ -45,8 +45,8 @@ Route::middleware(['auth'])->group(function () {
     // route search
     Route::get('/dashboard/search', [searchController::class, 'index'])->middleware('role:etudiant')->name('etudiant.search');
     // route admin Session
-    Route::get('/dashboard/session', [sessionsAdminController::class, 'session'])->middleware('role:admin')->name('admin.session');
+    Route::get('/dashboard/session', [sessionsController::class, 'index'])->middleware('role:admin')->name('admin.session');
     //route competence
-    Route::get('/dashboard/competence', [competenceController::class, 'competence'])->middleware('role:admin')->name('admin.competence');
+    Route::get('/dashboard/competence', [competenceController::class, 'index'])->middleware('role:admin')->name('admin.competence');
 
 });

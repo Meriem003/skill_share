@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de bord - SkillShare</title>
     @vite (['resources/css/style.css']) 
+    @vite(['resources/css/header.css'])
+
     @vite (['resources/css/dashboard.css'])
 </head>
 <body>
 @include('includes.header')
 
-    <main class="main-content">
+    <main class="main-content" >
         <div class="dashboard-container">
             <div class="dashboard-header">
                 <h1>Tableau de bord</h1>
@@ -68,7 +70,6 @@
                                     <h4>Initiation au JavaScript</h4>
                                     <p>14:30 - 16:00 • Bibliothèque du campus</p>
                                     <div class="session-with">
-                                        <img src="images/user2.svg" alt="Photo de profil">
                                         <span>Avec Thomas Dubois</span>
                                     </div>
                                 </div>
@@ -83,7 +84,6 @@
                                     <h4>Bases du Python</h4>
                                     <p>10:00 - 11:00 • Salle informatique B12</p>
                                     <div class="session-with">
-                                        <img src="images/user3.svg" alt="Photo de profil">
                                         <span>Avec Lucas Martin</span>
                                     </div>
                                 </div>
@@ -98,7 +98,6 @@
                                     <h4>Design d'interfaces</h4>
                                     <p>15:00 - 16:30 • Salle de design</p>
                                     <div class="session-with">
-                                        <img src="images/user4.svg" alt="Photo de profil">
                                         <span>Avec Emma Petit</span>
                                     </div>
                                 </div>

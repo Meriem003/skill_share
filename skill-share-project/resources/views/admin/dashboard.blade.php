@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administration - SkillShare</title>
     @vite (['resources/css/style.css']) 
+    @vite(['resources/css/header.css'])
     @vite (['resources/css/admin.css'])
 </head>
 <body>
@@ -13,7 +14,7 @@
         <div class="admin-container">
             <div class="admin-sidebar">
                 <div class="admin-profile">
-                    <img src="images/admin-avatar.svg" alt="Photo de profil" class="admin-avatar">
+                    <img src=".../../../profil.jpg" alt="Photo de profil" class="admin-avatar">
                     <div class="admin-info">
                         <h3>Admin</h3>
                         <p>Administrateur</p>
@@ -34,13 +35,13 @@
                         </a>
                         </li>
                         <li>
-                        <a href="{{ route('admin.sessions') }}">
+                        <a href="{{ route('admin.session') }}">
                                 <span class="icon">📚</span>
                                 <span>Sessions</span>
                             </a>
                         </li>
                         <li>
-                        <a href="{{ route('admin.compétences') }}">
+                        <a href="{{ route('admin.competence') }}">
                                 <span class="icon">📝</span>
                                 <span>compétence</span>
                             </a>
@@ -52,14 +53,6 @@
             <div class="admin-content">
                 <div class="admin-header">
                     <h1>Tableau de bord administrateur</h1>
-                    <div class="admin-actions">
-                        <button class="btn btn-secondary">
-                            <span class="icon">📥</span> Exporter les données
-                        </button>
-                        <button class="btn btn-primary">
-                            <span class="icon">✉️</span> Envoyer une notification
-                        </button>
-                    </div>
                 </div>
                 
                 <div class="admin-overview">

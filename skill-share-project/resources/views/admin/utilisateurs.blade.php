@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administration - SkillShare</title>
     @vite (['resources/css/style.css']) 
+    @vite(['resources/css/header.css'])
     @vite (['resources/css/admin.css'])
 </head>
 <body>
@@ -13,8 +14,8 @@
         <div class="admin-container">
             <div class="admin-sidebar">
                 <div class="admin-profile">
-                    <img src="images/admin-avatar.svg" alt="Photo de profil" class="admin-avatar">
-                    <div class="admin-info">
+                <img src=".../../../profil.jpg" alt="Photo de profil" class="admin-avatar">
+                <div class="admin-info">
                         <h3>Admin</h3>
                         <p>Administrateur</p>
                     </div>
@@ -34,13 +35,13 @@
                         </a>
                         </li>
                         <li>
-                        <a href="{{ route('admin.sessions') }}">
+                        <a href="{{ route('admin.session') }}">
                                 <span class="icon">📚</span>
                                 <span>Sessions</span>
                             </a>
                         </li>
                         <li>
-                        <a href="{{ route('admin.compétences') }}">
+                        <a href="{{ route('admin.competence') }}">
                                 <span class="icon">📝</span>
                                 <span>compétence</span>
                             </a>
@@ -67,7 +68,6 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Nom</th>
                                     <th>Email</th>
                                     <th>Campus</th>
                                     <th>Date d'inscription</th>
@@ -77,134 +77,39 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>#001</td>
-                                    <td class="user-cell">
-                                        <img src="images/user1.svg" alt="Photo de profil">
-                                        <span>Sophie Martin</span>
-                                    </td>
-                                    <td>sophie.martin@email.com</td>
-                                    <td>Paris</td>
-                                    <td>01/03/2023</td>
-                                    <td>24</td>
-                                    <td><span class="status-badge active">Actif</span></td>
-                                    <td class="actions-cell">
-                                        <button class="action-btn edit">
-                                            <span class="icon">✏️</span>
-                                        </button>
-                                        <button class="action-btn suspend">
-                                            <span class="icon">🔒</span>
-                                        </button>
-                                        <button class="action-btn delete">
-                                            <span class="icon">🗑️</span>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#002</td>
-                                    <td class="user-cell">
-                                        <img src="images/user2.svg" alt="Photo de profil">
-                                        <span>Thomas Dubois</span>
-                                    </td>
-                                    <td>thomas.dubois@email.com</td>
-                                    <td>Lyon</td>
-                                    <td>15/03/2023</td>
-                                    <td>18</td>
-                                    <td><span class="status-badge active">Actif</span></td>
-                                    <td class="actions-cell">
-                                        <button class="action-btn edit">
-                                            <span class="icon">✏️</span>
-                                        </button>
-                                        <button class="action-btn suspend">
-                                            <span class="icon">🔒</span>
-                                        </button>
-                                        <button class="action-btn delete">
-                                            <span class="icon">🗑️</span>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#003</td>
-                                    <td class="user-cell">
-                                        <img src="images/user3.svg" alt="Photo de profil">
-                                        <span>Lucas Martin</span>
-                                    </td>
-                                    <td>lucas.martin@email.com</td>
-                                    <td>Paris</td>
-                                    <td>22/03/2023</td>
-                                    <td>12</td>
-                                    <td><span class="status-badge active">Actif</span></td>
-                                    <td class="actions-cell">
-                                        <button class="action-btn edit">
-                                            <span class="icon">✏️</span>
-                                        </button>
-                                        <button class="action-btn suspend">
-                                            <span class="icon">🔒</span>
-                                        </button>
-                                        <button class="action-btn delete">
-                                            <span class="icon">🗑️</span>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#004</td>
-                                    <td class="user-cell">
-                                        <img src="images/user4.svg" alt="Photo de profil">
-                                        <span>Emma Petit</span>
-                                    </td>
-                                    <td>emma.petit@email.com</td>
-                                    <td>Paris</td>
-                                    <td>05/04/2023</td>
-                                    <td>8</td>
-                                    <td><span class="status-badge suspended">Suspendu</span></td>
-                                    <td class="actions-cell">
-                                        <button class="action-btn edit">
-                                            <span class="icon">✏️</span>
-                                        </button>
-                                        <button class="action-btn activate">
-                                            <span class="icon">🔓</span>
-                                        </button>
-                                        <button class="action-btn delete">
-                                            <span class="icon">🗑️</span>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#005</td>
-                                    <td class="user-cell">
-                                        <img src="images/user5.svg" alt="Photo de profil">
-                                        <span>Alexandre Durand</span>
-                                    </td>
-                                    <td>alexandre.durand@email.com</td>
-                                    <td>Marseille</td>
-                                    <td>12/04/2023</td>
-                                    <td>5</td>
-                                    <td><span class="status-badge active">Actif</span></td>
-                                    <td class="actions-cell">
-                                        <button class="action-btn edit">
-                                            <span class="icon">✏️</span>
-                                        </button>
-                                        <button class="action-btn suspend">
-                                            <span class="icon">🔒</span>
-                                        </button>
-                                        <button class="action-btn delete">
-                                            <span class="icon">🗑️</span>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
+    @foreach ($etudiants as $etudiant)
+        <tr>
+            <td>#{{ $etudiant->id }}</td>
+            <td>{{ $etudiant->email }}</td>
+            <td>{{ $etudiant->campus }}</td>
+            <td>{{ $etudiant->created_at->format('d/m/Y') }}</td>
+            <td>{{ $etudiant->sessions_count ?? 0 }}</td>
+            <td>
+                <span class="status-badge {{ $etudiant->status == 'active' ? 'active' : 'inactive' }}">
+                    {{ ucfirst($etudiant->status) }}
+                </span>
+            </td>
+            <td class="actions-cell">
+                <button class="action-btn edit">
+                    <span class="icon">✏️</span>
+                </button>
+                <button class="action-btn suspend">
+                    <span class="icon">🔒</span>
+                </button>
+                <button class="action-btn delete">
+                    <span class="icon">🗑️</span>
+                </button>
+            </td>
+        </tr>
+    @endforeach
+</tbody>
                         </table>
                     </div>
                     <div class="pagination">
-                        <button class="pagination-btn prev" disabled>Précédent</button>
+                        {{-- Liens de pagination --}}
                         <div class="pagination-numbers">
-                            <button class="pagination-number active">1</button>
-                            <button class="pagination-number">2</button>
-                            <button class="pagination-number">3</button>
-                            <span class="pagination-ellipsis">...</span>
-                            <button class="pagination-number">10</button>
+                            {!! $etudiants->links('pagination::bootstrap-4') !!}
                         </div>
-                        <button class="pagination-btn next">Suivant</button>
                     </div>
                 </div>
             </div>
