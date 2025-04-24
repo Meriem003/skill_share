@@ -25,7 +25,7 @@
 
 .profile-avatar {
   position: absolute;
-  top: -50px;
+  top: 40px;
   left: 30px;
   width: 100px;
   height: 100px;
@@ -44,10 +44,10 @@
 
 .edit-avatar-btn {
   position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 30px;
-  height: 30px;
+  bottom: 135px;
+  right: 30;
+  width: 60px;
+  height: 40px;
   border-radius: 50%;
   background-color: var(--primary);
   border: 2px solid var(--white);
@@ -487,10 +487,14 @@
   opacity: 0.6;
 }
 
+.icon{
+  
+}
+
 .badge-icon {
-  font-size: 3rem;
-  margin-bottom: 20px;
-  color: var(--primary-dark);
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: var(--medium-gray);
 }
 
 .badge-card h4 {

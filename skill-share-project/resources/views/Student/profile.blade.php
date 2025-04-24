@@ -14,14 +14,13 @@
     <main class="main-content">
         <div class="profile-container">
             <div class="profile-header">
-                <div class="profile-cover" style="background-color: #F8C8DC;"></div>
                 <div class="profile-info">
                     <div class="profile-avatar">
-                        <img src="images/default-avatar.svg" alt="Photo de profil" id="profile-image">
-                        <button class="edit-avatar-btn" id="edit-avatar-btn">
-                            <span class="icon">📷</span>
-                        </button>
+                        <img src=".../../../profil.jpg" alt="Photo de profil" id="profile-image">
                     </div>
+                    <button class="edit-avatar-btn" id="edit-avatar-btn">
+                            <span class="icon">Modifier le profil</span>
+                        </button>
                     <div class="profile-details">
                         <h1>Marie Dupont</h1>
                         <p class="profile-campus">Campus de Paris</p>

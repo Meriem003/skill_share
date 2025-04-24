@@ -34,6 +34,20 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/utilisateur', [utilisateursController::class, 'index'])->middleware('role:admin')->name('admin.utilisateurs');
     // Route Etudiant
     Route::get('/dashboard/etudiant', [EtudiantController::class, 'index'])->middleware('role:etudiant')->name('etudiant.dashboard');
+// Suspendre un utilisateur
+Route::patch('/dashboard/utilisateur/{id}/suspendre', [UtilisateursController::class, 'suspendre'])
+    ->middleware(['auth', 'role:admin'])
+    ->name('admin.utilisateurs.suspendre');
+
+// Réactiver un utilisateur suspendu
+Route::patch('/dashboard/utilisateur/{id}/reactiver', [UtilisateursController::class, 'reactiver'])
+    ->middleware(['auth', 'role:admin'])
+    ->name('admin.utilisateurs.reactiver');
+
+// Supprimer un utilisateur
+Route::delete('/dashboard/utilisateur/{id}', [UtilisateursController::class, 'supprimer'])
+    ->middleware(['auth', 'role:admin'])
+    ->name('admin.utilisateurs.supprimer');
     // Route booking
     Route::get('/dashboard/booking', [bookingController::class, 'index'])->middleware('role:etudiant')->name('etudiant.booking');
     // Route profile

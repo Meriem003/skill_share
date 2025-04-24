@@ -56,10 +56,12 @@
                         <h2>Gestion des utilisateurs</h2>
                         <div class="section-actions">
                             <div class="search-input-wrapper">
-                                <input type="text" placeholder="Rechercher un utilisateur...">
-                                <button class="search-btn">
-                                    <span class="icon">🔍</span>
-                                </button>
+                            <form method="GET" action="{{ route('admin.utilisateurs') }}">
+                            <input type="text" name="q" placeholder="Rechercher un utilisateur..." value="{{ request('q') }}">
+                            <button type="submit" class="search-btn">
+                                <span class="icon">🔍</span>
+                            </button>
+                        </form>
                             </div>
                         </div>
                     </div>
@@ -90,16 +92,35 @@
                 </span>
             </td>
             <td class="actions-cell">
-                <button class="action-btn edit">
-                    <span class="icon">✏️</span>
-                </button>
-                <button class="action-btn suspend">
-                    <span class="icon">🔒</span>
-                </button>
-                <button class="action-btn delete">
-                    <span class="icon">🗑️</span>
-                </button>
-            </td>
+                        {{-- Si l'utilisateur est actif, permettre de suspendre --}}
+                        @if ($etudiant->status === 'actif')
+                            <form method="POST" action="{{ route('admin.utilisateurs.suspendre', $etudiant->id) }}" style="display: inline-block;">
+                                @csrf
+                                @method('PATCH')
+                                <button class="action-btn suspend" type="submit">
+                                    <span class="icon">🔓</span> 
+                                </button>
+                            </form>
+                        @endif
+
+                        {{-- Si l'utilisateur est suspendu, permettre de réactiver --}}
+                        @if ($etudiant->status === 'suspendu')
+                            <form method="POST" action="{{ route('admin.utilisateurs.reactiver', $etudiant->id) }}" style="display: inline-block;">
+                                @csrf
+                                @method('PATCH')
+                                <button class="action-btn reactivate" type="submit">
+                                    <span class="icon">🔒</span> 
+                                </button>
+                            </form>
+                        @endif
+                        <form method="POST" action="{{ route('admin.utilisateurs.supprimer', $etudiant->id) }}" style="display: inline-block;">
+                            @csrf
+                            @method('DELETE')
+                            <button class="action-btn delete" type="submit">
+                                <span class="icon">🗑️</span> 
+                            </button>
+                        </form>
+                    </td>
         </tr>
     @endforeach
 </tbody>
