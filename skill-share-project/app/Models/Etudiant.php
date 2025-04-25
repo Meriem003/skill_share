@@ -17,7 +17,7 @@ class Etudiant extends Model
     public function badges()
     {
         return $this->belongsToMany(Badge::class, 'etudiant_badge')
-                    ->withTimestamp('date_obtention')
+                    ->withPivot('date_obtention') // Include the 'date_obtention' column from the pivot table
                     ->withTimestamps();
     }
     public function teachingSkills()
