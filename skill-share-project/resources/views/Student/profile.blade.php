@@ -27,10 +27,6 @@
                         <span class="stat-value">{{ $user->etudiant->evaluationsRecues->count() }}</span>
                         <span class="stat-label">Sessions</span>
                     </div>
-                    <div class="stat">
-                        <span class="stat-value">850</span> <!-- Points à calculer si nécessaire -->
-                        <span class="stat-label">Points</span>
-                    </div>
                 </div>
             </div>
             <button class="edit-profile-btn" id="edit-profile-btn">Modifier le profil</button>
