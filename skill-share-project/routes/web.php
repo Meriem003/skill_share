@@ -10,6 +10,7 @@ use App\Http\Controllers\etudiants\notificationsController;
 use App\Http\Controllers\etudiants\todoController;
 use App\Http\Controllers\visiteure\searchController;
 use App\Http\Controllers\visiteure\CoursController;
+use App\Http\Controllers\visiteure\VisitprofileController;
 use App\Http\Controllers\etudiants\profileController;
 use App\Http\Controllers\admin\competenceController;
 use App\Http\Controllers\admin\sessionsController;
@@ -77,5 +78,6 @@ Route::delete('/dashboard/utilisateur/{id}', [UtilisateursController::class, 'su
 Route::get('/cours', [CoursController::class, 'index'])->name('cours');
 // route search sans auth
 Route::get('/search', [searchController::class, 'index'])->name('search');
-
+// route pour afficher profile visit
+Route::get('/visit/profile/{id}', [VisitprofileController::class, 'show'])->name('profile.show');
 

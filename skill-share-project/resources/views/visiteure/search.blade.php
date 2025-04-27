@@ -100,7 +100,9 @@
             </div>
             <div class="result-actions">
                 <button class="btn btn-primary"><a href="{{ route('etudiant.booking') }}">Réserver une session</a></button>
-                <button class="btn btn-secondary"><a href="{{ route('etudiant.profile') }}">Voir le profil</a></button>
+                <button class="btn btn-secondary">
+                <a href="{{ route('profile.show', ['id' => $etudiant->id]) }}">Voir le profil</a>
+                </button>            
             </div>
         </div>
     @empty

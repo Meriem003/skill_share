@@ -18,7 +18,7 @@
                 <h1>Tableau de bord</h1>
                 <div class="dashboard-actions">
                     <button class="btn btn-primary">
-                    <a href="{{ route('etudiant.search') }}">ajouté une session</a>
+                    <a href="{{ route('search') }}">ajouté une session</a>
                     </button>
                 </div>
             </div>
