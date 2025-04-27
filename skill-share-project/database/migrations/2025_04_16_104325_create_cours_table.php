@@ -9,22 +9,21 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('cours', function (Blueprint $table) {
+        Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->string('titre');
-            $table->text('description');
-            $table->string('enseignant');
+            $table->text('description')->nullable();
+            $table->string('image_path')->nullable(); // Image associée au cours
+            $table->foreignId('etudiant_id')->constrained()->onDelete('cascade'); // Clé étrangère
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('cours');
+        Schema::dropIfExists('courses');
     }
 };
+

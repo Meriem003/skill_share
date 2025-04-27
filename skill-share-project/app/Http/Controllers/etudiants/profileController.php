@@ -17,6 +17,7 @@ class ProfileController extends Controller
             'etudiant.learningSkills',
             'etudiant.badges',
             'etudiant.evaluationsRecues.auteur',
+            'etudiant.courses', // Charger les cours créés par l'étudiant
         ])->find(Auth::id());
 
         // Vérifier si l'utilisateur est lié à un étudiant

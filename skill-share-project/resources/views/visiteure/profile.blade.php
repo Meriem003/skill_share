@@ -29,6 +29,7 @@
                 <button class="tab-btn active" data-tab="skills">Compétences</button>
                 <button class="tab-btn" data-tab="reviews">Évaluations</button>
                 <button class="tab-btn" data-tab="badges">Badges</button>
+                <button class="tab-btn" data-tab="courses">Cours</button>
             </div>
 
             <!-- Compétences -->
@@ -104,6 +105,24 @@
                     @endforelse
                 </div>
             </div>
+            <div class="tab-content" id="courses-tab">
+        <div class="courses-grid">
+        <h3>Cours créés par {{ $user->fullname }}</h3>
+        @forelse ($user->etudiant->courses as $course)
+            <div class="course-card">
+                <div class="course-image">
+                    <img src="{{ asset($course->image_path ?? 'images/default-course.jpg') }}" alt="{{ $course->titre }}">
+                </div>
+                <div class="course-details">
+                    <h4>{{ $course->titre }}</h4>
+                    <p>{{ $course->description }}</p>
+                </div>
+            </div>
+        @empty
+            <p>Aucun cours créé.</p>
+        @endforelse
+    </div>
+</div>
         </div>
     </div>
 </main>

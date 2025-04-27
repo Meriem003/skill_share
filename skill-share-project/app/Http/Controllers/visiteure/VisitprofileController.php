@@ -15,6 +15,7 @@ class VisitprofileController extends Controller
             'etudiant.learningSkills', // Compétences à apprendre
             'etudiant.badges', // Badges
             'etudiant.evaluationsRecues.auteur.user', // Évaluations avec auteur
+            'etudiant.courses', // Charger les cours créés par l'étudiant
         ])->findOrFail($id);
     
         // Vérifier si l'utilisateur est lié à un étudiant

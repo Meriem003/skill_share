@@ -13,10 +13,8 @@ return new class extends Migration
     {
         Schema::create('sessions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cours_id')->constrained()->onDelete('cascade');
             $table->string('titre');
             $table->text('description');
-            $table->boolean('disponibilite')->default(true);
             $table->timestamps();
         });
     }

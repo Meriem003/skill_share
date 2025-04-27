@@ -13,10 +13,12 @@ class SkillsSeeder extends Seeder
     public function run()
     {
         $skills = [
-            ['nom' => 'programmation', 'description' => 'Compétences en programmation informatique'],
-            ['nom' => 'design', 'description' => 'Compétences en design graphique et UI/UX'],
-            ['nom' => 'mathematiques', 'description' => 'Compétences en mathématiques'],
-            ['nom' => 'langues', 'description' => 'Compétences linguistiques'],
+            ['nom' => 'Python', 'description' => 'Compétences en programmation informatique'],
+            ['nom' => 'Java', 'description' => 'Compétences en design graphique et UI/UX'],
+            ['nom' => 'c', 'description' => 'Compétences en mathématiques'],
+            ['nom' => 'Laravel', 'description' => 'Compétences linguistiques'],
+            ['nom' => 'JavaScript', 'description' => 'Compétences en mathématiques'],
+            ['nom' => 'React', 'description' => 'Compétences linguistiques'],
         ];
 
         foreach ($skills as $skill) {

@@ -8,12 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Session extends Model
 {
     use HasFactory;
-    protected $fillable = ['cours_id', 'titre', 'description', 'disponibilite'];
+    protected $fillable = ['titre', 'description', 'disponibilite'];
 
-    public function cours()
-    {
-        return $this->belongsTo(Cours::class);
-    }
+
 
     public function etudiants()
     {
