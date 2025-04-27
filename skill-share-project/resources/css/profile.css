@@ -730,6 +730,7 @@ body {
   }
   
   .review-card, .badge-card {
+    background-color: #272727;
   }
 }
 
@@ -887,5 +888,342 @@ body {
 
 .profile-details {
   transform: translateZ(20px);
+}
+
+:root {
+  --primary: #f5d0d3; /* Rose nude plus clair */
+  --primary-dark: #e8a9a9; /* Rose nude plus foncé */
+  --primary-light: #fbe4e6;
+  --color-black: #4b4848f5;
+  --color-pink: #b695a0cc;
+  --color-nude: #e6d2c0;
+  --color-white: #ffffff;
+  --color-light-gray: #f8f8f8;
+  --color-medium-gray: #e0e0e0;
+  --shadow: 0 4px 12px rgb(239, 225, 225);
+  --border-radius: 10px;
+}
+
+/* Style général avec animation de chargement de page */
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--color-black);
+  background-color: #fafafa; /* couleur de fond claire */
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  opacity: 0;
+  animation: fadeInPage 0.8s ease forwards;
+}
+
+@keyframes fadeInPage {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.main-content {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+/* Conteneur du profil avec effet d'apparition */
+.profile-container {
+  background-color: #ffffff; /* fond blanc clair */
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transform: translateY(20px);
+  opacity: 0;
+  animation: slideUpFadeIn 0.8s ease forwards 0.2s;
+}
+
+@keyframes slideUpFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* En-tête du profil avec dégradé */
+.profile-header {
+  background: linear-gradient(135deg, var(--primary-light), var(--primary-dark)); /* Dégradé clair */
+  padding: 40px 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Effet de particules en arrière-plan */
+.profile-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 10% 20%, transparent 0%, transparent 5%, var(--primary-light) 5.1%, var(--primary-light) 5.5%, transparent 5.6%), 
+              radial-gradient(circle at 90% 80%, transparent 0%, transparent 3%, var(--primary-light) 3.1%, var(--primary-light) 3.5%, transparent 3.6%),
+              radial-gradient(circle at 50% 50%, transparent 0%, transparent 4%, var(--primary-light) 4.1%, var(--primary-light) 4.5%, transparent 4.6%),
+              radial-gradient(circle at 20% 90%, transparent 0%, transparent 2%, var(--primary-light) 2.1%, var(--primary-light) 2.5%, transparent 2.6%),
+              radial-gradient(circle at 80% 10%, transparent 0%, transparent 2.5%, var(--primary-light) 2.6%, var(--primary-light) 3%, transparent 3.1%);
+  background-size: 300px 300px;
+  opacity: 0.4;
+  animation: movingParticles 120s linear infinite;
+}
+
+@keyframes movingParticles {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 300% 300%;
+  }
+}
+
+.profile-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.profile-details h1 {
+  font-size: 32px;
+  margin: 0 0 5px 0;
+  color: var(--color-black);
+  position: relative;
+  display: inline-block;
+}
+
+/* Animation de soulignement au survol du nom */
+.profile-details h1::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background-color: var(--color-pink);
+  transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.profile-details h1:hover::after {
+  width: 100%;
+}
+
+.profile-campus {
+  color: var(--color-black);
+  margin: 5px 0;
+  font-size: 16px;
+  opacity: 0.8;
+  position: relative;
+  padding-left: 22px;
+  transition: transform 0.3s ease;
+}
+
+/* Animation icône campus */
+.profile-campus::before {
+  content: '📍';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  transition: transform 0.3s ease;
+}
+
+.profile-campus:nth-of-type(2)::before {
+  content: '✉️';
+}
+
+.profile-campus:hover {
+  transform: translateX(5px);
+}
+
+.profile-campus:hover::before {
+  transform: translateY(-50%) rotate(20deg);
+}
+
+.profile-stats {
+  display: flex;
+  margin-top: 20px;
+  gap: 30px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.2); /* fond plus clair */
+  backdrop-filter: blur(5px);
+  border-radius: 10px;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.stat:hover {
+  transform: translateY(-8px) scale(1.05);
+  background-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--color-pink);
+  position: relative;
+  display: inline-block;
+}
+
+/* Animation de compteur pour les statistiques */
+.stat:hover .stat-value {
+  animation: countUp 1s ease-out forwards;
+}
+
+@keyframes countUp {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.stat-label {
+  font-size: 14px;
+  color: var(--color-black);
+  opacity: 0.8;
+  margin-top: 5px;
+}
+
+/* Bouton modifier avec effet 3D et ripple */
+.edit-profile-btn {
+  background-color: var(--color-pink);
+  color: var(--color-white);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(255, 93, 143, 0.3);
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transform: perspective(800px);
+}
+
+.edit-profile-btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.7);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+.edit-profile-btn:hover {
+  background-color: #e64c7f;
+  transform: translateY(-3px) perspective(800px) rotateX(10deg);
+  box-shadow: 0 6px 12px rgba(255, 93, 143, 0.5);
+}
+
+.edit-profile-btn:active::after {
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    opacity: 1;
+    transform: scale(0, 0) translate(-50%, -50%);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(20, 20) translate(-50%, -50%);
+  }
+}
+
+/* Section de contenu avec ombre progressive */
+.profile-content {
+  background-color: #ffffff; /* fond blanc clair */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  margin-top: 30px;
+  opacity: 0;
+  animation: fadeInContent 0.8s ease forwards 0.4s;
+}
+
+@keyframes fadeInContent {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Changer l'apparence des avis en fonction de l'arrière-plan */
+.review-card {
+  background-color: var(--color-light-gray);
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
+}
+
+.review-card:hover {
+  transform: scale(1.05);
+}
+
+.review-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.review-author img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.review-content {
+  margin-top: 10px;
+  font-size: 16px;
+  color: var(--color-black);
+  opacity: 0.8;
+}
+
+.review-rating {
+  margin-top: 10px;
+  display: flex;
+  gap: 5px;
+}
+
+.review-rating span {
+  color: #ffb400;
 }
 

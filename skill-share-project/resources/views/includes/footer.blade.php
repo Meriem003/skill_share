@@ -10,7 +10,7 @@
                     <h3>Navigation</h3>
                     <ul>
                         <li><a href="{{ route('home') }}">Accueil</a></li>
-                        <li><a href="{{ route('etudiant.search') }}">Rechercher</a></li>
+                        <li><a href="{{ route('search') }}">Rechercher</a></li>
                         <li><a href="{{ route('etudiant.todo') }}">To-Do Liste</a></li>
                         <li><a href="{{ route('etudiant.dashboard') }}">Tableau de bord</a></li>
                     </ul>

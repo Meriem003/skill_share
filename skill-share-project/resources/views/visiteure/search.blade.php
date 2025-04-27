@@ -19,7 +19,7 @@
             </div>
             
             <div class="search-form-container">
-            <form id="search-form" class="search-form" method="GET" action="{{ route('etudiant.search') }}">
+            <form id="search-form" class="search-form" method="GET" action="{{ route('search') }}">
     <div class="search-input-wrapper">
         <input type="text" id="search-input" name="name" placeholder="Rechercher une compétence, un utilisateur..." value="{{ request('name') }}">
         <button type="submit" class="search-btn">

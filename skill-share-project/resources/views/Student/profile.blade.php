@@ -20,14 +20,6 @@
                 <p class="profile-campus">Campus de {{ ucfirst($user->campus) }}</p>
                 <p class="profile-campus"> email :  {{ ucfirst($user->email) }}</p>
                 <div class="profile-stats">
-                    <div class="stat">
-                        <span class="stat-value">{{ $user->etudiant->evaluationsRecues->avg('note') ?? 'N/A' }}</span>
-                        <span class="stat-label">Note moyenne</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-value">{{ $user->etudiant->evaluationsRecues->count() }}</span>
-                        <span class="stat-label">Sessions</span>
-                    </div>
                 </div>
             </div>
         <button class="edit-profile-btn" id="edit-profile-btn">
@@ -119,7 +111,7 @@
 
     @include('includes.footer')
     @vite (['resources/js/main.js'])
-    <!-- @vite (['resources/js/profile.js']) -->
+    @vite (['resources/js/profile.js'])
 </body>
 </html>
 

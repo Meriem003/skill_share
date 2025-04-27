@@ -12,8 +12,8 @@
             <nav class="main-nav">
                 <ul class="nav-list">
                     <li class="nav-item"><a href="{{ route('home') }}" class="nav-link">Accueil</a></li>
-                    <li class="nav-item"><a href="{{ route('etudiant.search') }}" class="nav-link">Rechercher</a></li>
-                    <li class="nav-item"><a href="{{ route('etudiant.booking') }}" class="nav-link">Réservations</a></li>
+                    <li class="nav-item"><a href="{{ route('search') }}" class="nav-link">Rechercher</a></li>
+                    <li class="nav-item"><a href="{{ route('cours') }}" class="nav-link">les cours</a></li>
                 </ul>
             </nav>
             
@@ -56,8 +56,8 @@
     <nav class="mobile-nav">
         <ul class="mobile-nav-list">
             <li class="mobile-nav-item"><a href="{{ route('home') }}" class="nav-link active">Accueil</a></li>
-            <li class="mobile-nav-item"><a href="{{ route('etudiant.search') }}" class="nav-link">Rechercher</a></li>
-            <li class="mobile-nav-item"><a href="{{ route('etudiant.booking') }}" class="nav-link">Réservations</a></li>
+            <li class="mobile-nav-item"><a href="{{ route('search') }}" class="nav-link">Rechercher</a></li>
+            <li class="mobile-nav-item"><a href="{{ route('cours') }}" class="nav-link">les cours</a></li>
         </ul>
     </nav>
     

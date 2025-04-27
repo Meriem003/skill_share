@@ -8,7 +8,8 @@ use App\Http\Controllers\etudiants\EtudiantController;
 use App\Http\Controllers\etudiants\bookingController;
 use App\Http\Controllers\etudiants\notificationsController;
 use App\Http\Controllers\etudiants\todoController;
-use App\Http\Controllers\etudiants\searchController;
+use App\Http\Controllers\visiteure\searchController;
+use App\Http\Controllers\visiteure\CoursController;
 use App\Http\Controllers\etudiants\profileController;
 use App\Http\Controllers\admin\competenceController;
 use App\Http\Controllers\admin\sessionsController;
@@ -65,11 +66,16 @@ Route::delete('/dashboard/utilisateur/{id}', [UtilisateursController::class, 'su
     Route::get('/dashboard/notification', [notificationsController::class, 'index'])->middleware('role:etudiant')->name('etudiant.notification');
     // route todo
     Route::get('/dashboard/todo', [todoController::class, 'index'])->middleware('role:etudiant')->name('etudiant.todo');
-    // route search
-    Route::get('/dashboard/search', [searchController::class, 'index'])->middleware('role:etudiant')->name('etudiant.search');
     // route admin Session
     Route::get('/dashboard/session', [sessionsController::class, 'index'])->middleware('role:admin')->name('admin.session');
     //route competence
     Route::get('/dashboard/competence', [competenceController::class, 'index'])->middleware('role:admin')->name('admin.competence');
 
 });
+
+// Route pour view cours visiteur
+Route::get('/cours', [CoursController::class, 'index'])->name('cours');
+// route search sans auth
+Route::get('/search', [searchController::class, 'index'])->name('search');
+
+

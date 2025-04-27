@@ -1,6 +1,5 @@
 <?php
-namespace App\Http\Controllers\etudiants;
-
+namespace App\Http\Controllers\visiteure;
 use App\Http\Controllers\Controller;
 use App\Models\Skill;
 use App\Models\User;
@@ -42,6 +41,6 @@ class SearchController extends Controller
             ->paginate(3); // Pagination avec 6 résultats par page
 
         // Retourner la vue avec les résultats et les compétences
-        return view('student.search', compact('etudiants', 'teachingSkills', 'learningSkills'));
+        return view('visiteure.search', compact('etudiants', 'teachingSkills', 'learningSkills'));
     }
 }
