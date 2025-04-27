@@ -52,6 +52,15 @@ Route::delete('/dashboard/utilisateur/{id}', [UtilisateursController::class, 'su
     Route::get('/dashboard/booking', [bookingController::class, 'index'])->middleware('role:etudiant')->name('etudiant.booking');
     // Route profile
     Route::get('/dashboard/profile', [profileController::class, 'index'])->middleware('role:etudiant')->name('etudiant.profile');
+        // Nouvelle Route : Modifier le profil (Étudiant)
+        Route::get('/profile/edit', [profileController::class, 'edit'])
+        ->middleware('role:etudiant')
+        ->name('etudiant.profile.edit');
+    
+    Route::post('/profile/update', [profileController::class, 'update'])
+        ->middleware('role:etudiant')
+        ->name('etudiant.profile.update');
+        
     // Route notification
     Route::get('/dashboard/notification', [notificationsController::class, 'index'])->middleware('role:etudiant')->name('etudiant.notification');
     // route todo
