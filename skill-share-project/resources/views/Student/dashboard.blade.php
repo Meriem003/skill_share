@@ -12,7 +12,7 @@
 <body>
 @include('includes.header')
 
-    <main class="main-content" >
+    <main class="main-content">
         <div class="dashboard-container">
             <div class="dashboard-header">
                 <h1>Tableau de bord</h1>
@@ -109,61 +109,28 @@
                 </div>
                 
                 <div class="dashboard-column">
-                <div class="dashboard-card todo-preview">
+                    <div class="dashboard-card todo-preview">
                         <div class="card-header">
                             <h2>To-Do Liste</h2>
                             <a href="{{ route('etudiant.todo') }}" class="view-all">Voir tout</a>
                         </div>
                         <div class="card-content">
-                            <div class="todo-progress-bar">
-                                <div class="progress" style="width: 60%;"></div>
-                                <span class="progress-text">12/20 tâches terminées</span>
-                            </div>
                             <div class="todo-items">
-                                <div class="todo-item">
-                                    <div class="todo-checkbox">
-                                        <input type="checkbox" id="dashboard-todo-1">
-                                        <label for="dashboard-todo-1"></label>
+                                @forelse ($taches as $tache)
+                                    <div class="todo-item">
+                                        <div class="todo-checkbox">
+                                            <input type="checkbox" id="dashboard-todo-{{ $tache->id }}" {{ $tache->statut === 'completed' ? 'checked' : '' }}>
+                                            <label for="dashboard-todo-{{ $tache->id }}"></label>
+                                        </div>
+                                        <div class="todo-content">
+                                            <h4>{{ $tache->titre }}</h4>
+                                            <p>{{ $tache->date_limite ? \Carbon\Carbon::parse($tache->date_limite)->format('d/m/Y H:i') : 'Pas de date limite' }}</p>
+                                        </div>
+                                        <div class="todo-priority {{ $tache->statut }}"></div>
                                     </div>
-                                    <div class="todo-content">
-                                        <h4>Préparer le cours de JavaScript</h4>
-                                        <p>Aujourd'hui, 18:00</p>
-                                    </div>
-                                    <div class="todo-priority high"></div>
-                                </div>
-                                <div class="todo-item">
-                                    <div class="todo-checkbox">
-                                        <input type="checkbox" id="dashboard-todo-2">
-                                        <label for="dashboard-todo-2"></label>
-                                    </div>
-                                    <div class="todo-content">
-                                        <h4>Réviser les bases de Python</h4>
-                                        <p>Aujourd'hui, 20:00</p>
-                                    </div>
-                                    <div class="todo-priority medium"></div>
-                                </div>
-                                <div class="todo-item">
-                                    <div class="todo-checkbox">
-                                        <input type="checkbox" id="dashboard-todo-3">
-                                        <label for="dashboard-todo-3"></label>
-                                    </div>
-                                    <div class="todo-content">
-                                        <h4>Mettre à jour la photo de profil</h4>
-                                        <p>Aujourd'hui, 22:00</p>
-                                    </div>
-                                    <div class="todo-priority low"></div>
-                                </div>
-                                <div class="todo-item">
-                                    <div class="todo-checkbox">
-                                        <input type="checkbox" id="dashboard-todo-3">
-                                        <label for="dashboard-todo-3"></label>
-                                    </div>
-                                    <div class="todo-content">
-                                        <h4>Mettre à jour la photo de profil</h4>
-                                        <p>Aujourd'hui, 22:00</p>
-                                    </div>
-                                    <div class="todo-priority low"></div>
-                                </div>
+                                @empty
+                                    <p>Aucune tâche trouvée.</p>
+                                @endforelse
                             </div>
                             <a href="{{ route('etudiant.todo') }}" class="btn btn-secondary btn-sm btn-block">Gérer mes tâches</a>
                         </div>

@@ -50,19 +50,19 @@
                     <div class="todo-categories">
                         <h3>Catégories</h3>
                         <ul class="category-list">
-                            <li class="category-item" data-category="teaching">
-                                <span class="category-color" style="background-color: #F8C8DC;"></span>
-                                <span class="category-name">Enseignement</span>
+                            <li class="category-item" data-category="Basse">
+                                <span class="category-color" style="background-color:rgb(54, 202, 103);"></span>
+                                <span class="category-name">Basse</span>
                                 <span class="category-count">3</span>
                             </li>
-                            <li class="category-item" data-category="learning">
-                                <span class="category-color" style="background-color: #E6A4B4;"></span>
-                                <span class="category-name">Apprentissage</span>
+                            <li class="category-item" data-category="Moyenne">
+                                <span class="category-color" style="background-color:rgb(225, 180, 83);"></span>
+                                <span class="category-name">Moyenne</span>
                                 <span class="category-count">4</span>
                             </li>
-                            <li class="category-item" data-category="profile">
-                                <span class="category-color" style="background-color: #333333;"></span>
-                                <span class="category-name">Profil</span>
+                            <li class="category-item" data-category="Haute">
+                                <span class="category-color" style="background-color:rgb(198, 41, 41);"></span>
+                                <span class="category-name">Haute</span>
                                 <span class="category-count">1</span>
                             </li>
                         </ul>
@@ -84,135 +84,38 @@
                 <div class="todo-main">
                     <div class="todo-actions">
                         <button class="btn btn-primary" id="add-task-btn">
-                            <span class="icon">+</span> Ajouter une tâche
+                        <a href="{{ route('etudiant.todo.create') }}" class="btn btn-primary">
+                        <span class="icon">+</span> Ajouter une tâche
+                        </a>
                         </button>
-                        <div class="todo-sort">
-                            <label for="sort-tasks">Trier par:</label>
-                            <select id="sort-tasks">
-                                <option value="date">Date</option>
-                                <option value="priority">Priorité</option>
-                                <option value="category">Catégorie</option>
-                            </select>
-                        </div>
                     </div>
                     
                     <div class="todo-list">
-                        <div class="task-item" data-priority="high" data-category="teaching" data-date="today">
-                            <div class="task-checkbox">
-                                <input type="checkbox" id="task-1">
-                                <label for="task-1"></label>
-                            </div>
-                            <div class="task-content">
-                                <h4 class="task-title">Préparer le cours de JavaScript</h4>
-                                <p class="task-description">Créer des exemples de code et des exercices pour la session de demain</p>
-                                <div class="task-meta">
-                                    <span class="task-date">Aujourd'hui, 18:00</span>
-                                    <span class="task-category" style="background-color: #F8C8DC;">Enseignement</span>
-                                    <span class="task-priority high">Priorité haute</span>
-                                </div>
-                            </div>
-                            <div class="task-actions">
-                                <button class="task-edit-btn">
-                                    <span class="icon">✏️</span>
-                                </button>
-                                <button class="task-delete-btn">
-                                    <span class="icon">🗑️</span>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="task-item" data-priority="medium" data-category="learning" data-date="today">
-                            <div class="task-checkbox">
-                                <input type="checkbox" id="task-2">
-                                <label for="task-2"></label>
-                            </div>
-                            <div class="task-content">
-                                <h4 class="task-title">Réviser les bases de Python</h4>
-                                <p class="task-description">Revoir les concepts fondamentaux avant la session de vendredi</p>
-                                <div class="task-meta">
-                                    <span class="task-date">Aujourd'hui, 20:00</span>
-                                    <span class="task-category" style="background-color: #E6A4B4;">Apprentissage</span>
-                                    <span class="task-priority medium">Priorité moyenne</span>
-                                </div>
-                            </div>
-                            <div class="task-actions">
-                                <button class="task-edit-btn">
-                                    <span class="icon">✏️</span>
-                                </button>
-                                <button class="task-delete-btn">
-                                    <span class="icon">🗑️</span>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="task-item" data-priority="low" data-category="profile" data-date="today">
-                            <div class="task-checkbox">
-                                <input type="checkbox" id="task-3">
-                                <label for="task-3"></label>
-                            </div>
-                            <div class="task-content">
-                                <h4 class="task-title">Mettre à jour la photo de profil</h4>
-                                <p class="task-description">Télécharger une nouvelle photo de profil plus professionnelle</p>
-                                <div class="task-meta">
-                                    <span class="task-date">Aujourd'hui, 22:00</span>
-                                    <span class="task-category" style="background-color: #333333; color: white;">Profil</span>
-                                    <span class="task-priority low">Priorité basse</span>
-                                </div>
-                            </div>
-                            <div class="task-actions">
-                                <button class="task-edit-btn">
-                                    <span class="icon">✏️</span>
-                                </button>
-                                <button class="task-delete-btn">
-                                    <span class="icon">🗑️</span>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="task-item" data-priority="high" data-category="teaching" data-date="upcoming">
-                            <div class="task-checkbox">
-                                <input type="checkbox" id="task-4">
-                                <label for="task-4"></label>
-                            </div>
-                            <div class="task-content">
-                                <h4 class="task-title">Préparer la session de design UI/UX</h4>
-                                <p class="task-description">Créer des maquettes et des exemples pour la session de la semaine prochaine</p>
-                                <div class="task-meta">
-                                    <span class="task-date">Demain, 14:00</span>
-                                    <span class="task-category" style="background-color: #F8C8DC;">Enseignement</span>
-                                    <span class="task-priority high">Priorité haute</span>
-                                </div>
-                            </div>
-                            <div class="task-actions">
-                                <button class="task-edit-btn">
-                                    <span class="icon">✏️</span>
-                                </button>
-                                <button class="task-delete-btn">
-                                    <span class="icon">🗑️</span>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="task-item completed" data-priority="medium" data-category="learning" data-date="completed">
-                            <div class="task-checkbox">
-                                <input type="checkbox" id="task-5" checked>
-                                <label for="task-5"></label>
-                            </div>
-                            <div class="task-content">
-                                <h4 class="task-title">Terminer le tutoriel HTML/CSS</h4>
-                                <p class="task-description">Compléter le tutoriel en ligne sur les bases du HTML et CSS</p>
-                                <div class="task-meta">
-                                    <span class="task-date">Terminé le 02/06/2023</span>
-                                    <span class="task-category" style="background-color: #E6A4B4;">Apprentissage</span>
-                                    <span class="task-priority medium">Priorité moyenne</span>
-                                </div>
-                            </div>
-                            <div class="task-actions">
-                                <button class="task-delete-btn">
-                                    <span class="icon">🗑️</span>
-                                </button>
-                            </div>
-                        </div>
+                    @forelse ($taches as $tache)
+            <div class="task-item" data-priority="{{ $tache->statut }}" data-date="{{ $tache->date_limite }}">
+                <div class="task-checkbox">
+                    <input type="checkbox" id="task-{{ $tache->id }}" {{ $tache->statut === 'completed' ? 'checked' : '' }}>
+                    <label for="task-{{ $tache->id }}"></label>
+                </div>
+                <div class="task-content">
+                    <h4 class="task-title">{{ $tache->titre }}</h4>
+                    <p class="task-description">{{ $tache->description }}</p>
+                    <div class="task-meta">
+                        <span class="task-date">{{ $tache->date_limite ? $tache->date_limite->format('d/m/Y H:i') : 'Pas de date limite' }}</span>
+                    </div>
+                </div>
+                <div class="task-actions">
+                    <button class="task-edit-btn">
+                        <span class="icon">✏️</span>
+                    </button>
+                    <button class="task-delete-btn">
+                        <span class="icon">🗑️</span>
+                    </button>
+                </div>
+            </div>
+        @empty
+            <p>Aucune tâche trouvée.</p>
+        @endforelse
                     </div>
                 </div>
             </div>

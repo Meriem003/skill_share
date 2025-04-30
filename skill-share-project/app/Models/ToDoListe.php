@@ -10,6 +10,9 @@ class ToDoListe extends Model
     use HasFactory;
     protected $fillable = ['etudiant_id', 'titre'];
 
+    // Explicitly specify the table name to avoid case-sensitivity issues
+    protected $table = 'todo_listes';
+
     public function etudiant()
     {
         return $this->belongsTo(Etudiant::class);

@@ -35,14 +35,16 @@ Route::middleware(['auth'])->group(function () {
     // Route Utilisateur
     Route::get('/dashboard/utilisateur', [utilisateursController::class, 'index'])->middleware('role:admin')->name('admin.utilisateurs');
     // Route Etudiant
-    Route::get('/dashboard/etudiant', [EtudiantController::class, 'index'])->middleware('role:etudiant')->name('etudiant.dashboard');
-// Suspendre un utilisateur
-Route::patch('/dashboard/utilisateur/{id}/suspendre', [UtilisateursController::class, 'suspendre'])
+    Route::get('/dashboard/etudiant', [EtudiantController::class, 'index'])
+    ->middleware('role:etudiant')
+    ->name('etudiant.dashboard');
+    // Suspendre un utilisateur
+    Route::patch('/dashboard/utilisateur/{id}/suspendre', [UtilisateursController::class, 'suspendre'])
     ->middleware(['auth', 'role:admin'])
     ->name('admin.utilisateurs.suspendre');
 
 // Réactiver un utilisateur suspendu
-Route::patch('/dashboard/utilisateur/{id}/reactiver', [UtilisateursController::class, 'reactiver'])
+    Route::patch('/dashboard/utilisateur/{id}/reactiver', [UtilisateursController::class, 'reactiver'])
     ->middleware(['auth', 'role:admin'])
     ->name('admin.utilisateurs.reactiver');
 
@@ -65,8 +67,6 @@ Route::delete('/dashboard/utilisateur/{id}', [UtilisateursController::class, 'su
         
     // Route notification
     Route::get('/dashboard/notification', [notificationsController::class, 'index'])->middleware('role:etudiant')->name('etudiant.notification');
-    // route todo
-    Route::get('/dashboard/todo', [todoController::class, 'index'])->middleware('role:etudiant')->name('etudiant.todo');
     // route admin Session
     Route::get('/dashboard/session', [sessionsController::class, 'index'])->middleware('role:admin')->name('admin.session');
     //route competence
@@ -81,3 +81,13 @@ Route::get('/search', [searchController::class, 'index'])->name('search');
 // route pour afficher profile visit
 Route::get('/visit/profile/{id}', [VisitprofileController::class, 'show'])->name('profile.show');
 
+// Routes ToDo pour étudiant
+Route::middleware(['auth', 'role:etudiant'])->group(function () {
+    Route::get('/dashboard/todo', [ToDoController::class, 'index'])->name('etudiant.todo');
+    Route::get('/dashboard/todo/create', [ToDoController::class, 'create'])->name('etudiant.todo.create');
+    Route::post('/dashboard/todo', [ToDoController::class, 'store'])->name('etudiant.todo.store');
+    // Ajoutez également ces routes si vous les utilisez ou comptez les utiliser
+    Route::get('/dashboard/todo/{id}/edit', [ToDoController::class, 'edit'])->name('etudiant.todo.edit');
+    Route::put('/dashboard/todo/{id}', [ToDoController::class, 'update'])->name('etudiant.todo.update');
+    Route::delete('/dashboard/todo/{id}', [ToDoController::class, 'destroy'])->name('etudiant.todo.destroy');
+});
