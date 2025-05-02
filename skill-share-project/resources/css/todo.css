@@ -552,3 +552,123 @@
   }
 }
 
+/* À ajouter à votre fichier resources/css/todo.css */
+
+/* Styles pour les boutons d'édition et de suppression */
+.task-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.task-edit-btn,
+.task-delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+}
+
+.task-edit-btn:hover {
+  background-color: rgba(0, 123, 255, 0.1);
+}
+
+.task-delete-btn:hover {
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+/* Style pour les tâches terminées */
+.task-title.completed {
+  text-decoration: line-through;
+  color: #6c757d;
+}
+
+/* Styles pour les statuts */
+.task-status {
+  font-size: 0.8rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: 10px;
+}
+
+.task-status.en.attente {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.task-status.en.cours {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.task-status.terminée {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+/* Formulaires */
+.status-form, .delete-form {
+  margin: 0;
+  padding: 0;
+}
+
+/* Style pour les boutons d'action */
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+  border: none;
+}
+
+.btn-primary {
+  background-color: #F8C8DC;
+  color: #333;
+}
+
+.btn-primary:hover {
+  background-color: #f5b5ce;
+}
+
+.btn-secondary {
+  background-color: #e9ecef;
+  color: #333;
+}
+
+.btn-secondary:hover {
+  background-color: #dde2e6;
+}
+
+/* Animation pour les tâches */
+.task-item {
+  transition: all 0.3s ease;
+}
+
+/* Notification de succès */
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}

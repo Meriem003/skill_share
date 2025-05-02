@@ -27,22 +27,22 @@
                             <li class="filter-item active" data-filter="all">
                                 <span class="filter-icon">📋</span>
                                 <span class="filter-name">Toutes les tâches</span>
-                                <span class="filter-count">8</span>
+                                <span class="filter-count"></span>
                             </li>
                             <li class="filter-item" data-filter="today">
                                 <span class="filter-icon">📅</span>
-                                <span class="filter-name">Aujourd'hui</span>
-                                <span class="filter-count">3</span>
+                                <span class="filter-name">En attente</span>
+                                <span class="filter-count"></span>
                             </li>
                             <li class="filter-item" data-filter="upcoming">
                                 <span class="filter-icon">⏰</span>
-                                <span class="filter-name">À venir</span>
-                                <span class="filter-count">5</span>
+                                <span class="filter-name">En cours</span>
+                                <span class="filter-count"></span>
                             </li>
                             <li class="filter-item" data-filter="completed">
                                 <span class="filter-icon">✅</span>
-                                <span class="filter-name">Terminées</span>
-                                <span class="filter-count">12</span>
+                                <span class="filter-name">Terminée</span>
+                                <span class="filter-count"></span>
                             </li>
                         </ul>
                     </div>
@@ -53,17 +53,14 @@
                             <li class="category-item" data-category="Basse">
                                 <span class="category-color" style="background-color:rgb(54, 202, 103);"></span>
                                 <span class="category-name">Basse</span>
-                                <span class="category-count">3</span>
                             </li>
                             <li class="category-item" data-category="Moyenne">
                                 <span class="category-color" style="background-color:rgb(225, 180, 83);"></span>
                                 <span class="category-name">Moyenne</span>
-                                <span class="category-count">4</span>
                             </li>
                             <li class="category-item" data-category="Haute">
                                 <span class="category-color" style="background-color:rgb(198, 41, 41);"></span>
                                 <span class="category-name">Haute</span>
-                                <span class="category-count">1</span>
                             </li>
                         </ul>
                     </div>
@@ -83,7 +80,7 @@
                 
                 <div class="todo-main">
                     <div class="todo-actions">
-                        <button class="btn btn-primary" id="add-task-btn">
+                        <button id="add-task-btn">
                         <a href="{{ route('etudiant.todo.create') }}" class="btn btn-primary">
                         <span class="icon">+</span> Ajouter une tâche
                         </a>
@@ -91,32 +88,42 @@
                     </div>
                     
                     <div class="todo-list">
-                    @forelse ($taches as $tache)
-            <div class="task-item" data-priority="{{ $tache->statut }}" data-date="{{ $tache->date_limite }}">
-                <div class="task-checkbox">
-                    <input type="checkbox" id="task-{{ $tache->id }}" {{ $tache->statut === 'completed' ? 'checked' : '' }}>
+    @forelse ($taches as $tache)
+        <div class="task-item" data-priority="{{ $tache->statut }}" data-date="{{ $tache->date_limite }}">
+            <div class="task-checkbox">
+                <form action="{{ route('etudiant.todo.status', $tache->id) }}" method="POST" class="status-form">
+                    @csrf
+                    @method('PATCH')
+                    <input type="hidden" name="statut" value="{{ $tache->statut == 'terminée' ? 'en attente' : 'terminée' }}">
+                    <input type="checkbox" id="task-{{ $tache->id }}" class="task-status-checkbox" {{ $tache->statut === 'terminée' ? 'checked' : '' }}>
                     <label for="task-{{ $tache->id }}"></label>
-                </div>
-                <div class="task-content">
-                    <h4 class="task-title">{{ $tache->titre }}</h4>
-                    <p class="task-description">{{ $tache->description }}</p>
-                    <div class="task-meta">
-                        <span class="task-date">{{ $tache->date_limite ? $tache->date_limite->format('d/m/Y H:i') : 'Pas de date limite' }}</span>
-                    </div>
-                </div>
-                <div class="task-actions">
-                    <button class="task-edit-btn">
-                        <span class="icon">✏️</span>
-                    </button>
-                    <button class="task-delete-btn">
-                        <span class="icon">🗑️</span>
-                    </button>
+                </form>
+            </div>
+            <div class="task-content">
+                <h4 class="task-title {{ $tache->statut === 'terminée' ? 'completed' : '' }}">{{ $tache->titre }}</h4>
+                <p class="task-description">{{ $tache->description }}</p>
+                <div class="task-meta">
+                    <span class="task-date">{{ $tache->date_limite ? $tache->date_limite->format('d/m/Y H:i') : 'Pas de date limite' }}</span>
+                    <span class="task-status {{ strtolower($tache->statut) }}">{{ $tache->statut }}</span>
                 </div>
             </div>
-        @empty
-            <p>Aucune tâche trouvée.</p>
-        @endforelse
-                    </div>
+            <div class="task-actions">
+                <a href="{{ route('etudiant.todo.edit', $tache->id) }}" class="task-edit-btn">
+                    <span class="icon">✏️</span>
+                </a>
+                <form action="{{ route('etudiant.todo.destroy', $tache->id) }}" method="POST" class="delete-form" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette tâche ?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="task-delete-btn">
+                        <span class="icon">🗑️</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    @empty
+        <p>Aucune tâche trouvée.</p>
+    @endforelse
+</div>
                 </div>
             </div>
         </div>

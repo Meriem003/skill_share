@@ -55,22 +55,3 @@
     @vite (['resources/js/main.js'])
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-quand j ai clique a Enregistrer il ma fiche 404
-Not Found http://127.0.0.1:8000/dashboard/todo

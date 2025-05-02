@@ -7,7 +7,7 @@ use App\Http\Controllers\admin\UtilisateursController;
 use App\Http\Controllers\etudiants\EtudiantController;
 use App\Http\Controllers\etudiants\bookingController;
 use App\Http\Controllers\etudiants\notificationsController;
-use App\Http\Controllers\etudiants\todoController;
+use App\Http\Controllers\etudiants\ToDoController;
 use App\Http\Controllers\visiteure\searchController;
 use App\Http\Controllers\visiteure\CoursController;
 use App\Http\Controllers\visiteure\VisitprofileController;
@@ -83,11 +83,16 @@ Route::get('/visit/profile/{id}', [VisitprofileController::class, 'show'])->name
 
 // Routes ToDo pour étudiant
 Route::middleware(['auth', 'role:etudiant'])->group(function () {
+    // Routes existantes
     Route::get('/dashboard/todo', [ToDoController::class, 'index'])->name('etudiant.todo');
     Route::get('/dashboard/todo/create', [ToDoController::class, 'create'])->name('etudiant.todo.create');
     Route::post('/dashboard/todo', [ToDoController::class, 'store'])->name('etudiant.todo.store');
-    // Ajoutez également ces routes si vous les utilisez ou comptez les utiliser
+    
+    // Nouvelles routes pour edit et delete
     Route::get('/dashboard/todo/{id}/edit', [ToDoController::class, 'edit'])->name('etudiant.todo.edit');
     Route::put('/dashboard/todo/{id}', [ToDoController::class, 'update'])->name('etudiant.todo.update');
     Route::delete('/dashboard/todo/{id}', [ToDoController::class, 'destroy'])->name('etudiant.todo.destroy');
+    
+    // Route pour mise à jour rapide du statut (pour les checkboxes de complétion)
+    Route::patch('/dashboard/todo/{id}/status', [ToDoController::class, 'updateStatus'])->name('etudiant.todo.status');
 });

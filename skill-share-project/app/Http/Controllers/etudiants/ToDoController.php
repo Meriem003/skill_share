@@ -64,4 +64,91 @@ class ToDoController extends Controller
         // Rediriger vers la page des tâches avec un message de succès
         return redirect()->route('etudiant.todo')->with('success', 'Tâche ajoutée avec succès.');
     }
+    
+    /**
+     * Afficher le formulaire de modification d'une tâche
+     */
+    public function edit($id)
+    {
+        $etudiant = Auth::user()->etudiant;
+        
+        // Récupérer la tâche en s'assurant qu'elle appartient à l'étudiant connecté
+        $tache = Tache::whereHas('todoListe', function ($query) use ($etudiant) {
+            $query->where('etudiant_id', $etudiant->id);
+        })->findOrFail($id);
+        
+        return view('student.edit_todo', compact('tache'));
+    }
+    
+    /**
+     * Mettre à jour une tâche existante
+     */
+    public function update(Request $request, $id)
+    {
+        $etudiant = Auth::user()->etudiant;
+        
+        // Récupérer la tâche en s'assurant qu'elle appartient à l'étudiant connecté
+        $tache = Tache::whereHas('todoListe', function ($query) use ($etudiant) {
+            $query->where('etudiant_id', $etudiant->id);
+        })->findOrFail($id);
+        
+        // Validation des données du formulaire
+        $validated = $request->validate([
+            'titre' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'date_limite' => 'nullable|date',
+            'statut' => 'nullable|string|in:en attente,en cours,terminée',
+        ]);
+        
+        // Mettre à jour la tâche
+        $tache->update($validated);
+        
+        return redirect()->route('etudiant.todo')->with('success', 'Tâche modifiée avec succès.');
+    }
+    
+    /**
+     * Supprimer une tâche
+     */
+    public function destroy($id)
+    {
+        $etudiant = Auth::user()->etudiant;
+        
+        // Récupérer la tâche en s'assurant qu'elle appartient à l'étudiant connecté
+        $tache = Tache::whereHas('todoListe', function ($query) use ($etudiant) {
+            $query->where('etudiant_id', $etudiant->id);
+        })->findOrFail($id);
+        
+        // Supprimer la tâche
+        $tache->delete();
+        
+        return redirect()->route('etudiant.todo')->with('success', 'Tâche supprimée avec succès.');
+    }
+    
+    /**
+     * Mettre à jour le statut d'une tâche (terminée ou non)
+     */
+    public function updateStatus(Request $request, $id)
+    {
+        $etudiant = Auth::user()->etudiant;
+        
+        // Récupérer la tâche en s'assurant qu'elle appartient à l'étudiant connecté
+        $tache = Tache::whereHas('todoListe', function ($query) use ($etudiant) {
+            $query->where('etudiant_id', $etudiant->id);
+        })->findOrFail($id);
+        
+        // Validation
+        $request->validate([
+            'statut' => 'required|string|in:en attente,en cours,terminée',
+        ]);
+        
+        // Mettre à jour le statut
+        $tache->statut = $request->statut;
+        $tache->save();
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Statut mis à jour avec succès',
+            'statut' => $tache->statut
+        ]);
+    }
 }

@@ -415,3 +415,168 @@
 //   updateTaskCount()
 // })
 
+// resources/js/todo.js
+document.addEventListener('DOMContentLoaded', function() {
+    // Change statut avec checkbox
+    const checkboxes = document.querySelectorAll('.task-status-checkbox');
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            // Soumettre le formulaire parent
+            this.closest('.status-form').submit();
+        });
+    });
+
+    // Filtres de la sidebar
+    const filterItems = document.querySelectorAll('.filter-item');
+    filterItems.forEach(item => {
+        item.addEventListener('click', function() {
+            // Retirer la classe active de tous les filtres
+            document.querySelectorAll('.filter-item').forEach(i => i.classList.remove('active'));
+            // Ajouter la classe active à l'élément cliqué
+            this.classList.add('active');
+            
+            // Filtrer les tâches
+            const filter = this.getAttribute('data-filter');
+            filterTasks(filter);
+        });
+    });
+
+    // Filtres de catégories
+    const categoryItems = document.querySelectorAll('.category-item');
+    categoryItems.forEach(item => {
+        item.addEventListener('click', function() {
+            // Retirer la classe active de toutes les catégories
+            document.querySelectorAll('.category-item').forEach(i => i.classList.remove('active'));
+            // Ajouter la classe active à l'élément cliqué
+            this.classList.add('active');
+            
+            // Filtrer les tâches par catégorie
+            const category = this.getAttribute('data-category');
+            filterTasksByCategory(category);
+        });
+    });
+
+    // Fonction pour filtrer les tâches
+    function filterTasks(filter) {
+        const tasks = document.querySelectorAll('.task-item');
+        const today = new Date().toISOString().split('T')[0]; // Format YYYY-MM-DD
+        
+        tasks.forEach(task => {
+            switch(filter) {
+                case 'all':
+                    task.style.display = '';
+                    break;
+                case 'today':
+                    const taskDate = task.getAttribute('data-date');
+                    if (taskDate && taskDate.includes(today)) {
+                        task.style.display = '';
+                    } else {
+                        task.style.display = 'none';
+                    }
+                    break;
+                case 'upcoming':
+                    const date = task.getAttribute('data-date');
+                    if (date && date > today) {
+                        task.style.display = '';
+                    } else {
+                        task.style.display = 'none';
+                    }
+                    break;
+                case 'completed':
+                    if (task.getAttribute('data-priority') === 'terminée') {
+                        task.style.display = '';
+                    } else {
+                        task.style.display = 'none';
+                    }
+                    break;
+                default:
+                    task.style.display = '';
+            }
+        });
+    }
+
+    // Fonction pour filtrer les tâches par catégorie
+    function filterTasksByCategory(category) {
+        const tasks = document.querySelectorAll('.task-item');
+        
+        if (category === 'all') {
+            tasks.forEach(task => task.style.display = '');
+            return;
+        }
+        
+        tasks.forEach(task => {
+            if (task.getAttribute('data-priority') === category) {
+                task.style.display = '';
+            } else {
+                task.style.display = 'none';
+            }
+        });
+    }
+
+    // Mettre à jour les compteurs de tâches
+    updateTaskCounters();
+
+    function updateTaskCounters() {
+        // Compter toutes les tâches
+        const allTasks = document.querySelectorAll('.task-item').length;
+        document.querySelector('.filter-item[data-filter="all"] .filter-count').textContent = allTasks;
+        
+        // Compter les tâches d'aujourd'hui
+        const today = new Date().toISOString().split('T')[0];
+        const todayTasks = [...document.querySelectorAll('.task-item')].filter(task => {
+            const taskDate = task.getAttribute('data-date');
+            return taskDate && taskDate.includes(today);
+        }).length;
+        document.querySelector('.filter-item[data-filter="today"] .filter-count').textContent = todayTasks;
+        
+        // Compter les tâches à venir
+        const upcomingTasks = [...document.querySelectorAll('.task-item')].filter(task => {
+            const taskDate = task.getAttribute('data-date');
+            return taskDate && taskDate > today;
+        }).length;
+        document.querySelector('.filter-item[data-filter="upcoming"] .filter-count').textContent = upcomingTasks;
+        
+        // Compter les tâches terminées
+        const completedTasks = [...document.querySelectorAll('.task-item')].filter(task => {
+            return task.getAttribute('data-priority') === 'terminée';
+        }).length;
+        document.querySelector('.filter-item[data-filter="completed"] .filter-count').textContent = completedTasks;
+        
+        // Mettre à jour les compteurs de catégories
+        const priorities = ['Basse', 'Moyenne', 'Haute'];
+        priorities.forEach(priority => {
+            const count = [...document.querySelectorAll('.task-item')].filter(task => {
+                return task.getAttribute('data-priority') === priority.toLowerCase();
+            }).length;
+            const categoryElement = document.querySelector(`.category-item[data-category="${priority}"] .category-count`);
+            if (categoryElement) {
+                categoryElement.textContent = count;
+            }
+        });
+
+        // Mettre à jour le cercle de progression
+        const totalTasks = allTasks + completedTasks; // Total de toutes les tâches (actives + terminées)
+        const progressPercentage = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+        
+        // Mettre à jour le texte du pourcentage
+        const progressText = document.querySelector('.progress-circle text');
+        if (progressText) {
+            progressText.textContent = `${progressPercentage}%`;
+        }
+        
+        // Mettre à jour le cercle SVG
+        const progressCircle = document.querySelector('.progress-circle circle:nth-child(2)');
+        if (progressCircle) {
+            const circumference = 2 * Math.PI * 54; // 2πr
+            const dashOffset = circumference * (1 - progressPercentage / 100);
+            progressCircle.style.strokeDasharray = circumference;
+            progressCircle.style.strokeDashoffset = dashOffset;
+        }
+        
+        // Mettre à jour le texte de progression
+        const progressTextElement = document.querySelector('.progress-text');
+        if (progressTextElement) {
+            progressTextElement.textContent = `${completedTasks} tâches terminées sur ${totalTasks}`;
+        }
+    }
+});
