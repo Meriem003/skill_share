@@ -14,14 +14,18 @@ class SearchController extends Controller
         $learningSkills = Skill::all(); // Représente les compétences à apprendre
 
         // Récupérer les filtres de recherche
+        $id = $request->input('id');
         $name = $request->input('name');
         $campus = $request->input('campus');
         $teachSkill = $request->input('teachSkill');
         $learnSkill = $request->input('learnSkill');
-
+        
         // Requête pour récupérer les utilisateurs
-        $etudiants = User::where('role', 'etudiant') // Filtrer uniquement les étudiants
-            ->with(['etudiant.teachingSkills', 'etudiant.learningSkills']) // Inclure les relations teaching et learning skills
+        $etudiants = User::where('role', 'etudiant')
+            ->with(['etudiant.teachingSkills', 'etudiant.learningSkills'])
+            ->when($id, function ($query, $id) {
+                $query->where('id', $id);
+            })
             ->when($name, function ($query, $name) {
                 $query->where('fullname', 'LIKE', '%' . $name . '%');
             })
