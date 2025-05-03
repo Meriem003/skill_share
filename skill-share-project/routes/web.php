@@ -89,6 +89,7 @@ Route::middleware(['auth', 'role:etudiant'])->group(function () {
     Route::post('/dashboard/todo', [ToDoController::class, 'store'])->name('etudiant.todo.store');
     
     // Nouvelles routes pour edit et delete
+    Route::put('/etudiant/todo/{id}/categorie', [ToDoController::class, 'updateCategorie'])->name('etudiant.todo.updateCategorie');
     Route::get('/dashboard/todo/{id}/edit', [ToDoController::class, 'edit'])->name('etudiant.todo.edit');
     Route::put('/dashboard/todo/{id}', [ToDoController::class, 'update'])->name('etudiant.todo.update');
     Route::delete('/dashboard/todo/{id}', [ToDoController::class, 'destroy'])->name('etudiant.todo.destroy');

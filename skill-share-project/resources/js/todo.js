@@ -456,41 +456,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Fonction pour filtrer les tâches
+    // Fonction pour filtrer les tâches par statut
     function filterTasks(filter) {
         const tasks = document.querySelectorAll('.task-item');
-        const today = new Date().toISOString().split('T')[0]; // Format YYYY-MM-DD
+        
+        if (filter === 'all') {
+            tasks.forEach(task => task.style.display = '');
+            return;
+        }
         
         tasks.forEach(task => {
-            switch(filter) {
-                case 'all':
-                    task.style.display = '';
-                    break;
-                case 'today':
-                    const taskDate = task.getAttribute('data-date');
-                    if (taskDate && taskDate.includes(today)) {
-                        task.style.display = '';
-                    } else {
-                        task.style.display = 'none';
-                    }
-                    break;
-                case 'upcoming':
-                    const date = task.getAttribute('data-date');
-                    if (date && date > today) {
-                        task.style.display = '';
-                    } else {
-                        task.style.display = 'none';
-                    }
-                    break;
-                case 'completed':
-                    if (task.getAttribute('data-priority') === 'terminée') {
-                        task.style.display = '';
-                    } else {
-                        task.style.display = 'none';
-                    }
-                    break;
-                default:
-                    task.style.display = '';
+            if (task.getAttribute('data-status') === filter) {
+                task.style.display = '';
+            } else {
+                task.style.display = 'none';
             }
         });
     }
@@ -505,7 +484,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         tasks.forEach(task => {
-            if (task.getAttribute('data-priority') === category) {
+            if (task.getAttribute('data-categorie') === category) {
                 task.style.display = '';
             } else {
                 task.style.display = 'none';
@@ -521,41 +500,35 @@ document.addEventListener('DOMContentLoaded', function() {
         const allTasks = document.querySelectorAll('.task-item').length;
         document.querySelector('.filter-item[data-filter="all"] .filter-count').textContent = allTasks;
         
-        // Compter les tâches d'aujourd'hui
-        const today = new Date().toISOString().split('T')[0];
-        const todayTasks = [...document.querySelectorAll('.task-item')].filter(task => {
-            const taskDate = task.getAttribute('data-date');
-            return taskDate && taskDate.includes(today);
-        }).length;
-        document.querySelector('.filter-item[data-filter="today"] .filter-count').textContent = todayTasks;
-        
-        // Compter les tâches à venir
-        const upcomingTasks = [...document.querySelectorAll('.task-item')].filter(task => {
-            const taskDate = task.getAttribute('data-date');
-            return taskDate && taskDate > today;
-        }).length;
-        document.querySelector('.filter-item[data-filter="upcoming"] .filter-count').textContent = upcomingTasks;
-        
-        // Compter les tâches terminées
-        const completedTasks = [...document.querySelectorAll('.task-item')].filter(task => {
-            return task.getAttribute('data-priority') === 'terminée';
-        }).length;
-        document.querySelector('.filter-item[data-filter="completed"] .filter-count').textContent = completedTasks;
+        // Compter les tâches par statut
+        const statuts = ['en attente', 'en cours', 'terminée'];
+        statuts.forEach(statut => {
+            const count = [...document.querySelectorAll('.task-item')].filter(task => {
+                return task.getAttribute('data-status') === statut;
+            }).length;
+            const statusElement = document.querySelector(`.filter-item[data-filter="${statut}"] .filter-count`);
+            if (statusElement) {
+                statusElement.textContent = count;
+            }
+        });
         
         // Mettre à jour les compteurs de catégories
-        const priorities = ['Basse', 'Moyenne', 'Haute'];
-        priorities.forEach(priority => {
+        const categories = ['Basse', 'Moyenne', 'Haute'];
+        categories.forEach(categorie => {
             const count = [...document.querySelectorAll('.task-item')].filter(task => {
-                return task.getAttribute('data-priority') === priority.toLowerCase();
+                return task.getAttribute('data-categorie') === categorie;
             }).length;
-            const categoryElement = document.querySelector(`.category-item[data-category="${priority}"] .category-count`);
+            const categoryElement = document.querySelector(`.category-item[data-category="${categorie}"] .category-count`);
             if (categoryElement) {
                 categoryElement.textContent = count;
             }
         });
 
         // Mettre à jour le cercle de progression
-        const totalTasks = allTasks + completedTasks; // Total de toutes les tâches (actives + terminées)
+        const completedTasks = [...document.querySelectorAll('.task-item')].filter(task => {
+            return task.getAttribute('data-status') === 'terminée';
+        }).length;
+        const totalTasks = allTasks;
         const progressPercentage = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
         
         // Mettre à jour le texte du pourcentage
@@ -578,5 +551,16 @@ document.addEventListener('DOMContentLoaded', function() {
         if (progressTextElement) {
             progressTextElement.textContent = `${completedTasks} tâches terminées sur ${totalTasks}`;
         }
+    }
+
+    // Observateur pour mettre à jour les compteurs lors des changements 
+    // (après soumission de formulaires AJAX)
+    const todoListObserver = new MutationObserver(function(mutations) {
+        updateTaskCounters();
+    });
+
+    const todoList = document.querySelector('.todo-list');
+    if (todoList) {
+        todoListObserver.observe(todoList, { childList: true, subtree: true });
     }
 });

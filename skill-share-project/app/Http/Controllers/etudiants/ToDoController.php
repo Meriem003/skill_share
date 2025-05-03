@@ -45,6 +45,7 @@ class ToDoController extends Controller
             'description' => 'nullable|string',
             'date_limite' => 'nullable|date',
             'statut' => 'nullable|string|in:en attente,en cours,terminée',
+            'categorie' => 'nullable|string|in:Haute,Moyenne,Basse',
         ]);
 
         // Associer la tâche à une liste de tâches de l'étudiant
@@ -98,6 +99,7 @@ class ToDoController extends Controller
             'description' => 'nullable|string',
             'date_limite' => 'nullable|date',
             'statut' => 'nullable|string|in:en attente,en cours,terminée',
+            'categorie' => 'nullable|string|in:Haute,Moyenne,Basse',
         ]);
         
         // Mettre à jour la tâche
@@ -124,9 +126,6 @@ class ToDoController extends Controller
         return redirect()->route('etudiant.todo')->with('success', 'Tâche supprimée avec succès.');
     }
     
-    /**
-     * Mettre à jour le statut d'une tâche (terminée ou non)
-     */
     public function updateStatus(Request $request, $id)
     {
         $etudiant = Auth::user()->etudiant;
@@ -145,10 +144,50 @@ class ToDoController extends Controller
         $tache->statut = $request->statut;
         $tache->save();
         
-        return response()->json([
-            'success' => true,
-            'message' => 'Statut mis à jour avec succès',
-            'statut' => $tache->statut
+        // Si la requête est AJAX, retourner une réponse JSON
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Statut mis à jour avec succès',
+                'statut' => $tache->statut
+            ]);
+        }
+        
+        // Sinon, rediriger avec un message flash
+        return redirect()->route('etudiant.todo')->with('success', 'Statut mis à jour avec succès.');
+    }
+    
+    /**
+     * Mettre à jour la catégorie d'une tâche
+     */
+    public function updateCategorie(Request $request, $id)
+    {
+        $etudiant = Auth::user()->etudiant;
+        
+        // Récupérer la tâche en s'assurant qu'elle appartient à l'étudiant connecté
+        $tache = Tache::whereHas('todoListe', function ($query) use ($etudiant) {
+            $query->where('etudiant_id', $etudiant->id);
+        })->findOrFail($id);
+        
+        // Validation
+        $request->validate([
+            'categorie' => 'required|string|in:Haute,Moyenne,Basse',
         ]);
+        
+        // Mettre à jour la catégorie
+        $tache->categorie = $request->categorie;
+        $tache->save();
+        
+        // Si la requête est AJAX, retourner une réponse JSON
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Catégorie mise à jour avec succès',
+                'categorie' => $tache->categorie
+            ]);
+        }
+        
+        // Sinon, rediriger avec un message flash
+        return redirect()->route('etudiant.todo')->with('success', 'Catégorie mise à jour avec succès.');
     }
 }

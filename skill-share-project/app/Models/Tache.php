@@ -8,8 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Tache extends Model
 {
     use HasFactory;
-    protected $fillable = ['todo_liste_id', 'titre', 'description', 'statut', 'date_limite'];
-
+    protected $fillable = [
+        'titre', 
+        'description', 
+        'statut', 
+        'categorie', 
+        'date_limite',
+        'todo_liste_id'
+    ];
     protected $casts = [
         'date_limite' => 'date',
     ];

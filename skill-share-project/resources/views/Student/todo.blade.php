@@ -29,17 +29,17 @@
                                 <span class="filter-name">Toutes les tâches</span>
                                 <span class="filter-count"></span>
                             </li>
-                            <li class="filter-item" data-filter="today">
+                            <li class="filter-item" data-filter="en attente">
                                 <span class="filter-icon">📅</span>
                                 <span class="filter-name">En attente</span>
                                 <span class="filter-count"></span>
                             </li>
-                            <li class="filter-item" data-filter="upcoming">
+                            <li class="filter-item" data-filter="en cours">
                                 <span class="filter-icon">⏰</span>
                                 <span class="filter-name">En cours</span>
                                 <span class="filter-count"></span>
                             </li>
-                            <li class="filter-item" data-filter="completed">
+                            <li class="filter-item" data-filter="terminée">
                                 <span class="filter-icon">✅</span>
                                 <span class="filter-name">Terminée</span>
                                 <span class="filter-count"></span>
@@ -53,14 +53,17 @@
                             <li class="category-item" data-category="Basse">
                                 <span class="category-color" style="background-color:rgb(54, 202, 103);"></span>
                                 <span class="category-name">Basse</span>
+                                <span class="category-count"></span>
                             </li>
                             <li class="category-item" data-category="Moyenne">
                                 <span class="category-color" style="background-color:rgb(225, 180, 83);"></span>
                                 <span class="category-name">Moyenne</span>
+                                <span class="category-count"></span>
                             </li>
                             <li class="category-item" data-category="Haute">
                                 <span class="category-color" style="background-color:rgb(198, 41, 41);"></span>
                                 <span class="category-name">Haute</span>
+                                <span class="category-count"></span>
                             </li>
                         </ul>
                     </div>
@@ -74,7 +77,7 @@
                                 <text x="60" y="65" text-anchor="middle" font-size="20" font-weight="bold">60%</text>
                             </svg>
                         </div>
-                        <p class="progress-text">12 tâches terminées sur 20</p>
+                        <p class="progress-text"></p>
                     </div>
                 </div>
                 
@@ -89,11 +92,12 @@
                     
                     <div class="todo-list">
     @forelse ($taches as $tache)
-        <div class="task-item" data-priority="{{ $tache->statut }}" data-date="{{ $tache->date_limite }}">
+        <div class="task-item" data-status="{{ $tache->statut }}" data-date="{{ $tache->date_limite }}" data-categorie="{{ $tache->categorie }}">
             <div class="task-checkbox">
                 <form action="{{ route('etudiant.todo.status', $tache->id) }}" method="POST" class="status-form">
                     @csrf
                     @method('PATCH')
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="hidden" name="statut" value="{{ $tache->statut == 'terminée' ? 'en attente' : 'terminée' }}">
                     <input type="checkbox" id="task-{{ $tache->id }}" class="task-status-checkbox" {{ $tache->statut === 'terminée' ? 'checked' : '' }}>
                     <label for="task-{{ $tache->id }}"></label>
@@ -105,9 +109,21 @@
                 <div class="task-meta">
                     <span class="task-date">{{ $tache->date_limite ? $tache->date_limite->format('d/m/Y H:i') : 'Pas de date limite' }}</span>
                     <span class="task-status {{ strtolower($tache->statut) }}">{{ $tache->statut }}</span>
+                    <span class="task-categorie categorie-{{ strtolower($tache->categorie) }}">{{ $tache->categorie }}</span>
                 </div>
             </div>
             <div class="task-actions">
+                <div class="categorie-selector">
+                    <form action="{{ route('etudiant.todo.updateCategorie', $tache->id) }}" method="POST" class="categorie-form">
+                        @csrf
+                        @method('PUT')
+                        <select name="categorie" class="categorie-select" onchange="this.form.submit()">
+                            <option value="Basse" {{ $tache->categorie === 'Basse' ? 'selected' : '' }}>Basse</option>
+                            <option value="Moyenne" {{ $tache->categorie === 'Moyenne' ? 'selected' : '' }}>Moyenne</option>
+                            <option value="Haute" {{ $tache->categorie === 'Haute' ? 'selected' : '' }}>Haute</option>
+                        </select>
+                    </form>
+                </div>
                 <a href="{{ route('etudiant.todo.edit', $tache->id) }}" class="task-edit-btn">
                     <span class="icon">✏️</span>
                 </a>
@@ -166,15 +182,15 @@
                             <label>Priorité</label>
                             <div class="priority-options">
                                 <label class="priority-option">
-                                    <input type="radio" name="task-priority" value="low">
+                                    <input type="radio" name="task-priority" value="Basse">
                                     <span class="priority-label low">Basse</span>
                                 </label>
                                 <label class="priority-option">
-                                    <input type="radio" name="task-priority" value="medium" checked>
+                                    <input type="radio" name="task-priority" value="Moyenne" checked>
                                     <span class="priority-label medium">Moyenne</span>
                                 </label>
                                 <label class="priority-option">
-                                    <input type="radio" name="task-priority" value="high">
+                                    <input type="radio" name="task-priority" value="Haute">
                                     <span class="priority-label high">Haute</span>
                                 </label>
                             </div>
@@ -200,4 +216,3 @@
     @vite (['resources/js/todo.js'])
 </body>
 </html>
-
