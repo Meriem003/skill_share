@@ -9,7 +9,6 @@
     @vite (['resources/css/admin.css'])
 </head>
 <body>
-@include('includes.header')
 <main class="main-content" style="padding: 0;">
         <div class="admin-container">
             <div class="admin-sidebar">
@@ -35,7 +34,7 @@
                         </a>
                         </li>
                         <li>
-                        <a href="{{ route('admin.session') }}">
+                        <a href="">
                                 <span class="icon">📚</span>
                                 <span>Sessions</span>
                             </a>
@@ -44,6 +43,12 @@
                         <a href="{{ route('admin.competence') }}">
                                 <span class="icon">📝</span>
                                 <span>compétence</span>
+                            </a>
+                        </li>
+                        <li>
+                        <a href="{{ route('logout') }}">
+                                <span class="icon">📝</span>
+                                <span>logout</span>
                             </a>
                         </li>
                     </ul>
@@ -59,34 +64,30 @@
                     <div class="overview-card">
                         <div class="overview-icon" style="background-color: #F8C8DC;">👥</div>
                         <div class="overview-details">
-                            <h3>1,245</h3>
+                            <h3 class="overview-change positive">1,245</h3>
                             <p>Utilisateurs inscrits</p>
                         </div>
-                        <div class="overview-change positive">+12% <span>ce mois</span></div>
                     </div>
                     <div class="overview-card">
                         <div class="overview-icon" style="background-color: #E6A4B4;">📚</div>
                         <div class="overview-details">
-                            <h3>856</h3>
+                            <h3 class="overview-change positive">856</h3>
                             <p>Sessions réalisées</p>
                         </div>
-                        <div class="overview-change positive">+8% <span>ce mois</span></div>
                     </div>
                     <div class="overview-card">
                         <div class="overview-icon" style="background-color: #F8C8DC;">⭐</div>
                         <div class="overview-details">
-                            <h3>4.7</h3>
+                            <h3 class="overview-change positive" >4.7</h3>
                             <p>Note moyenne</p>
                         </div>
-                        <div class="overview-change positive">+0.2 <span>ce mois</span></div>
                     </div>
                     <div class="overview-card">
                         <div class="overview-icon" style="background-color: #E6A4B4;">🏆</div>
                         <div class="overview-details">
-                            <h3>325</h3>
+                            <h3 class="overview-change positive">325</h3>
                             <p>Badges attribués</p>
                         </div>
-                        <div class="overview-change positive">+15% <span>ce mois</span></div>
                     </div>
                 </div>
                 

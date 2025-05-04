@@ -9,19 +9,18 @@
     @vite (['resources/css/admin.css'])
 </head>
 <body>
-@include('includes.header')
 <main class="main-content" style="padding: 0;">
         <div class="admin-container">
-            <div class="admin-sidebar">
+        <div class="admin-sidebar">
                 <div class="admin-profile">
-                <img src=".../../../profil.jpg" alt="Photo de profil" class="admin-avatar">
-                <div class="admin-info">
+                    <img src=".../../../profil.jpg" alt="Photo de profil" class="admin-avatar">
+                    <div class="admin-info">
                         <h3>Admin</h3>
                         <p>Administrateur</p>
                     </div>
                 </div>
                 <nav class="admin-nav">
-                <ul>
+                    <ul>
                         <li class="active">
                             <a href="{{ route('admin.dashboard') }}">
                                 <span class="icon">📊</span>
@@ -35,7 +34,7 @@
                         </a>
                         </li>
                         <li>
-                        <a href="{{ route('admin.session') }}">
+                        <a href="">
                                 <span class="icon">📚</span>
                                 <span>Sessions</span>
                             </a>
@@ -44,6 +43,12 @@
                         <a href="{{ route('admin.competence') }}">
                                 <span class="icon">📝</span>
                                 <span>compétence</span>
+                            </a>
+                        </li>
+                        <li>
+                        <a href="{{ route('logout') }}">
+                                <span class="icon">📝</span>
+                                <span>logout</span>
                             </a>
                         </li>
                     </ul>
