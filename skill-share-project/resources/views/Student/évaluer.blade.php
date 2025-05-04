@@ -94,64 +94,11 @@
                             <span class="error-message">{{ $message }}</span>
                         @enderror
                     </div>
-                </div>
-
-                @if($session->teacher_id != Auth::user()->etudiant->id)
-                    <!-- Section spécifique pour l'évaluation de l'enseignant -->
-                    <div class="form-section">
-                        <h2>Évaluation de l'enseignant</h2>
-                        
-                        <div class="rating-criteria">
-                            <div class="criterion">
-                                <label>Clarté des explications</label>
-                                <div class="rating-scale">
-                                    <input type="radio" id="clarte1" name="criteres[clarte]" value="1">
-                                    <label for="clarte1">1</label>
-                                    <input type="radio" id="clarte2" name="criteres[clarte]" value="2">
-                                    <label for="clarte2">2</label>
-                                    <input type="radio" id="clarte3" name="criteres[clarte]" value="3">
-                                    <label for="clarte3">3</label>
-                                    <input type="radio" id="clarte4" name="criteres[clarte]" value="4">
-                                    <label for="clarte4">4</label>
-                                    <input type="radio" id="clarte5" name="criteres[clarte]" value="5">
-                                    <label for="clarte5">5</label>
-                                </div>
-                            </div>
-                            
-                            <div class="criterion">
-                                <label>Qualité du support</label>
-                                <div class="rating-scale">
-                                    <input type="radio" id="support1" name="criteres[support]" value="1">
-                                    <label for="support1">1</label>
-                                    <input type="radio" id="support2" name="criteres[support]" value="2">
-                                    <label for="support2">2</label>
-                                    <input type="radio" id="support3" name="criteres[support]" value="3">
-                                    <label for="support3">3</label>
-                                    <input type="radio" id="support4" name="criteres[support]" value="4">
-                                    <label for="support4">4</label>
-                                    <input type="radio" id="support5" name="criteres[support]" value="5">
-                                    <label for="support5">5</label>
-                                </div>
-                            </div>
-                            
-                            <div class="criterion">
-                                <label>Patience et disponibilité</label>
-                                <div class="rating-scale">
-                                    <input type="radio" id="patience1" name="criteres[patience]" value="1">
-                                    <label for="patience1">1</label>
-                                    <input type="radio" id="patience2" name="criteres[patience]" value="2">
-                                    <label for="patience2">2</label>
-                                    <input type="radio" id="patience3" name="criteres[patience]" value="3">
-                                    <label for="patience3">3</label>
-                                    <input type="radio" id="patience4" name="criteres[patience]" value="4">
-                                    <label for="patience4">4</label>
-                                    <input type="radio" id="patience5" name="criteres[patience]" value="5">
-                                    <label for="patience5">5</label>
-                                </div>
-                            </div>
-                        </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn-submit">Soumettre l'évaluation</button>
                     </div>
-                @endif  
+                </div>
             </form>
         </div>
     </main>

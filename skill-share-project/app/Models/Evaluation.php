@@ -8,16 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Evaluation extends Model
 {
     use HasFactory;
-    protected $fillable = ['session_id', 'etudiant_id', 'note', 'commentaire', 'auteur_id'];
+    protected $fillable = ['session_id', 'auteur_id', 'evalue_id', 'note', 'commentaire', 'date_creation'];
 
     public function session()
     {
         return $this->belongsTo(Session::class);
     }
 
-    public function etudiant()
+    public function evalue()
     {
-        return $this->belongsTo(Etudiant::class, 'etudiant_id');
+        return $this->belongsTo(Etudiant::class, 'evalue_id');
     }
 
     public function auteur()
