@@ -59,51 +59,70 @@
                     <div class="dashboard-card upcoming-sessions">
                         <div class="card-header">
                             <h2>Sessions à venir</h2>
+                            <a href="{{ route('sessions.index') }}" class="view-all">Voir tout</a>
                         </div>
-                        <div class="card-content">
-                            <div class="session-item">
-                                <div class="session-date">
-                                    <span class="day">06</span>
-                                    <span class="month">Juin</span>
-                                </div>
-                                <div class="session-details">
-                                    <h4>Initiation au JavaScript</h4>
-                                    <p>14:30 - 16:00 • Bibliothèque du campus</p>
-                                    <div class="session-with">
-                                        <span>Avec Thomas Dubois</span>
-                                    </div>
-                                </div>
-                                <div class="session-type teaching">J'enseigne</div>
-                            </div>
-                            <div class="session-item">
-                                <div class="session-date">
-                                    <span class="day">09</span>
-                                    <span class="month">Juin</span>
-                                </div>
-                                <div class="session-details">
-                                    <h4>Bases du Python</h4>
-                                    <p>10:00 - 11:00 • Salle informatique B12</p>
-                                    <div class="session-with">
-                                        <span>Avec Lucas Martin</span>
-                                    </div>
-                                </div>
-                                <div class="session-type learning">J'apprends</div>
-                            </div>
-                            <div class="session-item">
-                                <div class="session-date">
-                                    <span class="day">12</span>
-                                    <span class="month">Juin</span>
-                                </div>
-                                <div class="session-details">
-                                    <h4>Design d'interfaces</h4>
-                                    <p>15:00 - 16:30 • Salle de design</p>
-                                    <div class="session-with">
-                                        <span>Avec Emma Petit</span>
-                                    </div>
-                                </div>
-                                <div class="session-type teaching">J'enseigne</div>
-                            </div>
-                        </div>
+<!-- Modification de la section des sessions à venir dans le dashboard -->
+<div class="card-content">
+    @forelse($sessions as $session)
+        <div class="session-item">
+            <div class="session-date">
+                <span class="day">{{ \Carbon\Carbon::parse($session->date_session)->format('d') }}</span>
+                <span class="month">{{ \Carbon\Carbon::parse($session->date_session)->locale('fr')->isoFormat('MMM') }}</span>
+            </div>
+            <div class="session-details">
+                <h4>{{ $session->titre }}</h4>
+                <p>{{ \Carbon\Carbon::parse($session->date_session)->format('H:i') }} - 
+                   {{ \Carbon\Carbon::parse($session->date_session)->addMinutes($session->duree)->format('H:i') }} • {{ $session->lieu_details }}</p>
+                <div class="session-with">
+                    @if($session->teacher_id == Auth::user()->etudiant->id)
+                        <span>Avec {{ $session->student->user->fullname }} (Vous êtes l'enseignant)</span>
+                    @else
+                        <span>Avec {{ $session->teacher->user->fullname }} (Vous êtes l'étudiant)</span>
+                    @endif
+                </div>
+            </div>
+
+            <!-- Actions de session conditionnelles selon le rôle et le statut -->
+            @if($session->statut === 'en_attente')
+                @if($session->teacher_id == Auth::user()->etudiant->id)
+                    <!-- Actions pour l'enseignant -->
+                    <div class="session-actions">
+                        <form method="POST" action="{{ route('session.accept', $session->id) }}" class="d-inline">
+                            @csrf
+                            <button type="submit" class="btn-action accept">Accepter</button>
+                        </form>
+                        <form method="POST" action="{{ route('session.reject', $session->id) }}" class="d-inline">
+                            @csrf
+                            <button type="submit" class="btn-action reject">Refuser</button>
+                        </form>
+                    </div>
+                @else
+                    <!-- Pour l'étudiant qui attend -->
+                    <span class="session-type">En attente de confirmation</span>
+                @endif
+            @elseif($session->statut === 'accepte')
+                @if($session->teacher_id == Auth::user()->etudiant->id)
+                    <!-- Enseignant peut marquer comme terminée -->
+                    <form method="POST" action="{{ route('session.complete', $session->id) }}">
+                        @csrf
+                        <button type="submit" class="session-type confirmer">Marquer comme terminée (Enseignant)</button>
+                    </form>
+                @else
+                    <!-- Étudiant peut marquer comme terminée -->
+                    <form method="POST" action="{{ route('session.complete', $session->id) }}">
+                        @csrf
+                        <button type="submit" class="session-type confirmer">Marquer comme terminée (Étudiant)</button>
+                    </form>
+                @endif
+            @elseif($session->statut === 'refuse')
+                <span class="session-type refused">Session refusée</span>
+            @endif
+        </div>
+    @empty
+        <p>Aucune session à venir.</p>
+    @endforelse
+</div>
+
                     </div>
                     
                 </div>

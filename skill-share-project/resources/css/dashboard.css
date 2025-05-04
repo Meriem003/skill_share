@@ -591,3 +591,83 @@
   }
 }
 
+/* Styles à ajouter à votre fichier dashboard.css */
+
+.session-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.btn-action {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-action.accept {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.btn-action.accept:hover {
+  background-color: #388E3C;
+}
+
+.btn-action.reject {
+  background-color: #F44336;
+  color: white;
+}
+
+.btn-action.reject:hover {
+  background-color: #D32F2F;
+}
+
+.session-type {
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  display: inline-block;
+  margin-top: 8px;
+}
+
+.session-type.confirmer {
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.session-type.confirmer:hover {
+  background-color: #1976D2;
+}
+
+.session-type.refused {
+  background-color: #F44336;
+  color: white;
+}
+
+/* Style pour la présentation du rôle dans la session */
+.session-with {
+  margin-top: 4px;
+  font-style: italic;
+  color: #666;
+}
+
+/* Amélioration du style pour les cartes de session */
+.session-item {
+  border-bottom: 1px solid #eee;
+  padding: 15px 0;
+}
+
+.session-item:last-child {
+  border-bottom: none;
+}
+
+.session-details h4 {
+  margin-bottom: 4px;
+}

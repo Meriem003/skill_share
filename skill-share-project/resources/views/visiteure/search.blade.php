@@ -99,11 +99,13 @@
                 </div>
             </div>
             <div class="result-actions">
-                <button class="btn btn-primary"><a href="{{ route('etudiant.booking') }}">Réserver une session</a></button>
-                <button class="btn btn-secondary">
+            <button class="btn btn-primary">
+                <a href="{{ route('etudiant.booking', ['teacher_id' => $etudiant->etudiant->id]) }}">Réserver une session</a>
+            </button>
+            <button class="btn btn-secondary">
                 <a href="{{ route('profile.show', ['id' => $etudiant->id]) }}">Voir le profil</a>
-                </button>            
-            </div>
+            </button>            
+        </div>
         </div>
     @empty
         <p>Aucun utilisateur trouvé.</p>

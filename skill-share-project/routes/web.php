@@ -5,7 +5,6 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\UtilisateursController;
 use App\Http\Controllers\admin\competenceController;
-use App\Http\Controllers\admin\sessionsController;
 use App\Http\Controllers\etudiants\EtudiantController;
 use App\Http\Controllers\etudiants\bookingController;
 use App\Http\Controllers\etudiants\notificationsController;
@@ -14,6 +13,7 @@ use App\Http\Controllers\etudiants\profileController;
 use App\Http\Controllers\visiteure\searchController;
 use App\Http\Controllers\visiteure\CoursController;
 use App\Http\Controllers\visiteure\VisitprofileController;
+use App\Http\Controllers\etudiants\SessionsController;
 
 // ==========================
 // VISITEUR
@@ -55,7 +55,6 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/dashboard/utilisateur/{id}', [UtilisateursController::class, 'supprimer'])->name('admin.utilisateurs.supprimer');
 
         // Sessions & Compétences
-        Route::get('/dashboard/session', [sessionsController::class, 'index'])->name('admin.session');
         Route::get('/dashboard/competence', [competenceController::class, 'index'])->name('admin.competence');
     });
 
@@ -90,5 +89,21 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/dashboard/todo/{id}', [ToDoController::class, 'destroy'])->name('etudiant.todo.destroy');
         Route::put('/etudiant/todo/{id}/categorie', [ToDoController::class, 'updateCategorie'])->name('etudiant.todo.updateCategorie');
         Route::patch('/dashboard/todo/{id}/status', [ToDoController::class, 'updateStatus'])->name('etudiant.todo.status');
+
+        // Sessions
+        Route::get('/sessions', [SessionsController::class, 'index'])->name('sessions.index');
+        Route::get('/sessions/create/{teacherId?}', [SessionsController::class, 'create'])->name('sessions.create');
+        Route::post('/sessions', [SessionsController::class, 'store'])->name('sessions.store');
+        Route::get('/sessions/{id}', [SessionsController::class, 'show'])->name('sessions.show');
+        
+        // Actions sur les sessions
+        Route::post('/sessions/{id}/accept', [SessionsController::class, 'accept'])->name('session.accept');
+        Route::post('/sessions/{id}/reject', [SessionsController::class, 'reject'])->name('session.reject');
+        Route::post('/sessions/{id}/cancel', [SessionsController::class, 'cancel'])->name('session.cancel');
+        Route::post('/sessions/{id}/complete', [SessionsController::class, 'complete'])->name('session.complete');
+        
+        // Évaluations
+        Route::get('/evaluation/create/{sessionId}', [SessionsController::class, 'createEvaluation'])->name('evaluation.create');
+        Route::post('/evaluation/{sessionId}', [SessionsController::class, 'storeEvaluation'])->name('evaluation.store');
     });
 });
