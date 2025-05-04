@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier le profil - SkillShare</title>
     @vite (['resources/css/style.css'])
-    @vite(['resources/css/todocreat.css'])
+    @vite(['resources/css/todocreate.css'])
     @vite(['resources/css/header.css'])
     @vite (['resources/css/edit-profile.css'])
 </head>

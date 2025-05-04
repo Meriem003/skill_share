@@ -28,7 +28,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="{{ route('etudiant.profile') }}"><i class="fas fa-user"></i> Mon profil</a></li>
                             <li><a href="{{ route('etudiant.dashboard') }}"><i class="fas fa-chart-line"></i> Tableau de bord</a></li>
-                            <li><a href="{{ route('etudiant.notification') }}"><i class="fas fa-bell"></i> Notifications</a></li>
+                            <li><a href="{{ route('etudiant.todo') }}"><i class="fas fa-bell"></i> todo list</a></li>
                             <li class="divider"></li>
                             <li>
                                 <form id="logout-form-desktop" action="{{ route('logout') }}" method="POST">
@@ -70,7 +70,7 @@
     <div class="mobile-user-actions">
         <a href="{{ route('etudiant.profile') }}" class="btn btn-secondary btn-block"><i class="fas fa-user"></i> Mon profil</a>
         <a href="{{ route('etudiant.dashboard') }}" class="btn btn-secondary btn-block"><i class="fas fa-chart-line"></i> Tableau de bord</a>
-        <a href="{{ route('etudiant.notification') }}" class="btn btn-secondary btn-block"><i class="fas fa-bell"></i> Notifications</a>
+        <a href="{{ route('etudiant.todo') }}" class="btn btn-secondary btn-block"><i class="fas fa-bell"></i> todo list </a>
         
         <form id="logout-form-mobile" action="{{ route('logout') }}" method="POST">
             @csrf

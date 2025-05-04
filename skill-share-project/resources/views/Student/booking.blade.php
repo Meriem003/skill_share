@@ -15,7 +15,6 @@
         <div class="booking-container">
             <div class="booking-header">
                 <h1>Réserver une session</h1>
-                <p>Planifiez une session d'apprentissage avec un autre étudiant</p>
             </div>
             
             <div class="booking-form-container">
