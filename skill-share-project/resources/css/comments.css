@@ -1,0 +1,414 @@
+/* Variables admin complémentaires */
+:root {
+  --admin-bg: var(--light-gray);
+  --admin-text: var(--text-color);
+  --admin-text-light: #777777;
+  --admin-card-bg: var(--white);
+  --admin-sidebar-bg: var(--white);
+  --admin-sidebar-active: var(--primary-light);
+  --admin-border: var(--medium-gray);
+  --admin-success: #4caf50;
+  --admin-warning: #ff9800;
+  --admin-danger: #f44336;
+  --admin-info: #2196f3);
+  --star-color: #ffc107;
+}
+
+/* Header de la page Commentaires */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--medium-gray);
+}
+
+.admin-header h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-color);
+  position: relative;
+}
+
+.admin-header h1::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 50px;
+  height: 3px;
+  background-color: var(--primary);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.admin-header h1:hover::after {
+  width: 100%;
+}
+
+/* Barre de recherche */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  padding: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--medium-gray);
+  transition: all 0.3s ease;
+  width: 250px;
+}
+
+.search-bar:hover,
+.search-bar:focus-within {
+  box-shadow: 0 4px 12px rgba(232, 169, 169, 0.2);
+  border-color: var(--primary);
+}
+
+.search-bar input {
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0.5rem;
+  flex: 1;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.search-bar button {
+  background: var(--primary);
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: var(--white);
+  transition: all 0.3s ease;
+}
+
+.search-bar button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.search-bar .icon {
+  font-size: 1rem;
+}
+
+/* Conteneur des commentaires */
+.comments-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Carte de commentaire */
+.comment-card {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  border: 1px solid var(--medium-gray);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.5s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.comment-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background-color: var(--primary-light);
+  transition: all 0.3s ease;
+}
+
+.comment-card:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 10px 20px rgba(232, 169, 169, 0.15);
+  border-color: var(--primary-light);
+}
+
+.comment-card:hover::before {
+  background-color: var(--primary);
+  width: 6px;
+}
+
+/* En-tête du commentaire */
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px dashed var(--medium-gray);
+}
+
+/* Étoiles de notation */
+.comment-rating {
+  font-size: 1.1rem;
+  color: var(--star-color);
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+}
+
+.comment-rating::after {
+  content: attr(data-rating);
+  margin-left: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--admin-text-light);
+}
+
+/* Date du commentaire */
+.comment-date {
+  font-size: 0.85rem;
+  color: var(--admin-text-light);
+  font-style: italic;
+}
+
+/* Titre de la session */
+.comment-session {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  margin-bottom: 0.8rem;
+  position: relative;
+  padding-left: 0;
+  transition: all 0.3s ease;
+}
+
+.comment-card:hover .comment-session {
+  color: var(--primary);
+}
+
+/* Informations sur les utilisateurs */
+.comment-users {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--admin-text);
+  background-color: var(--primary-light);
+  padding: 0.75rem;
+  border-radius: 8px;
+}
+
+.comment-users div {
+  display: flex;
+  align-items: center;
+}
+
+.comment-users div::before {
+  margin-right: 0.5rem;
+  font-weight: 600;
+}
+
+.comment-users div:first-child::before {
+  content: '👤';
+}
+
+.comment-users div:last-child::before {
+  content: '👨‍🏫';
+}
+
+/* Contenu du commentaire */
+.comment-content {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--admin-text);
+  margin-bottom: 1rem;
+  background-color: var(--light-gray);
+  padding: 1rem;
+  border-radius: 8px;
+  position: relative;
+}
+
+.comment-content::before {
+  content: '"';
+  position: absolute;
+  top: -5px;
+  left: 10px;
+  font-size: 2rem;
+  color: var(--primary);
+  opacity: 0.3;
+}
+
+.comment-content::after {
+  content: '"';
+  position: absolute;
+  bottom: -15px;
+  right: 10px;
+  font-size: 2rem;
+  color: var(--primary);
+  opacity: 0.3;
+}
+
+/* Actions sur le commentaire */
+.comment-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  padding-top: 0.5rem;
+}
+
+.comment-actions button {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: rgba(244, 67, 54, 0.1);
+  color: var(--admin-danger);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.comment-actions button:hover {
+  background-color: rgba(244, 67, 54, 0.2);
+  transform: translateY(-2px);
+}
+
+.comment-actions button i {
+  margin-right: 0.5rem;
+  font-size: 1.1rem;
+}
+
+/* État vide */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  border: 1px dashed var(--medium-gray);
+  color: var(--admin-text-light);
+  font-style: italic;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.pagination ul {
+  display: flex;
+  list-style: none;
+  gap: 0.5rem;
+  padding: 0;
+  margin: 0;
+}
+
+.pagination li {
+  display: inline-block;
+}
+
+.pagination a, 
+.pagination span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--border-radius);
+  background-color: var(--white);
+  color: var(--text-color);
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid var(--medium-gray);
+}
+
+.pagination a:hover {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  border-color: var(--primary);
+}
+
+.pagination .active span {
+  background-color: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+}
+
+.pagination .disabled span {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Animation pour les cartes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Décalage de l'animation pour chaque carte */
+.comment-card:nth-child(1) { animation-delay: 0.1s; }
+.comment-card:nth-child(2) { animation-delay: 0.2s; }
+.comment-card:nth-child(3) { animation-delay: 0.3s; }
+.comment-card:nth-child(4) { animation-delay: 0.4s; }
+.comment-card:nth-child(5) { animation-delay: 0.5s; }
+.comment-card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Responsive design */
+@media screen and (max-width: 992px) {
+  .comments-container {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .search-bar {
+    width: 100%;
+  }
+  
+  .comments-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .admin-content {
+    padding: 1rem;
+  }
+  
+  .comment-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .comment-users {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+/* Hover effects pour les boutons */
+.search-bar button:active {
+  transform: scale(0.95);
+}
+
+.comment-actions button:active {
+  transform: scale(0.95);
+}

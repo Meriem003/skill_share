@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administration - SkillShare</title>
+    <title>consuler utilisateur - SkillShare</title>
     @vite (['resources/css/style.css']) 
     @vite(['resources/css/header.css'])
     @vite (['resources/css/admin.css'])
@@ -22,35 +22,38 @@
                 </div>
                 <nav class="admin-nav">
                     <ul>
-                        <li class="active">
+                        <li>
                             <a href="{{ route('admin.dashboard') }}">
                                 <span class="icon">📊</span>
                                 <span>Tableau de bord</span>
                             </a>
                         </li>
                         <li>
-                        <a href="{{ route('admin.utilisateurs') }}">
-                            <span class="icon">👥</span>
-                            <span>Utilisateurs</span>
-                        </a>
+                            <a href="{{ route('admin.utilisateurs') }}">
+                                <span class="icon">👥</span>
+                                <span>Utilisateurs</span>
+                            </a>
                         </li>
                         <li>
-                        <a href="">
+                            <a href="{{ route('admin.Session') }}">
                                 <span class="icon">📚</span>
                                 <span>Sessions</span>
                             </a>
                         </li>
                         <li>
-                        <a href="{{ route('admin.competence') }}">
+                            <a href="{{ route('admin.Commentaire') }}">
                                 <span class="icon">📝</span>
-                                <span>compétence</span>
+                                <span>Commentaire</span>
                             </a>
                         </li>
-                        <li>
-                        <a href="{{ route('logout') }}">
-                                <span class="icon">📝</span>
-                                <span>logout</span>
-                            </a>
+                        <li class="log">
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" style="background: none; border: none; display: flex; align-items: center; width: 100%; padding: 12px 20px; cursor: pointer; color: inherit; text-align: left;">
+                                    <span class="icon">🚪</span>
+                                    <span>Déconnexion</span>
+                                </button>
+                            </form>
                         </li>
                     </ul>
                 </nav>
@@ -133,7 +136,6 @@
                         </table>
                     </div>
                     <div class="pagination">
-                        {{-- Liens de pagination --}}
                         <div class="pagination-numbers">
                             {!! $etudiants->links('pagination::bootstrap-4') !!}
                         </div>

@@ -1,0 +1,337 @@
+/* Variables admin complémentaires */
+:root {
+  --admin-bg: var(--light-gray);
+  --admin-text: var(--text-color);
+  --admin-text-light: #777777;
+  --admin-card-bg: var(--white);
+  --admin-sidebar-bg: var(--white);
+  --admin-sidebar-active: var(--primary-light);
+  --admin-border: var(--medium-gray);
+  --admin-success: #4caf50;
+  --admin-warning: #ff9800;
+  --admin-danger: #f44336;
+  --admin-info: #2196f3;
+}
+
+/* Header de la page Sessions */
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--medium-gray);
+}
+
+.admin-header h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-color);
+  position: relative;
+}
+
+.admin-header h1::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 50px;
+  height: 3px;
+  background-color: var(--primary);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.admin-header h1:hover::after {
+  width: 100%;
+}
+
+/* Barre de recherche */
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  padding: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--medium-gray);
+  transition: all 0.3s ease;
+}
+
+.search-bar:hover,
+.search-bar:focus-within {
+  box-shadow: 0 4px 12px rgba(232, 169, 169, 0.2);
+  border-color: var(--primary);
+}
+
+.search-bar input {
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 0.5rem;
+  flex: 1;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.search-bar button {
+  background: var(--primary);
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  color: var(--white);
+  transition: all 0.3s ease;
+}
+
+.search-bar button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.search-bar .icon {
+  font-size: 1rem;
+}
+
+/* Section des sessions */
+.admin-section {
+  padding: 1.5rem;
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.empty-message {
+  text-align: center;
+  padding: 2rem;
+  color: var(--admin-text-light);
+  font-style: italic;
+}
+
+/* Grille des sessions */
+.session-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Carte de session */
+.session-card {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid var(--medium-gray);
+}
+
+.session-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(232, 169, 169, 0.15);
+  border-color: var(--primary-light);
+}
+
+.session-card-header {
+  background-color: var(--primary-light);
+  padding: 1rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--medium-gray);
+}
+
+.session-card-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+}
+
+/* Statut de la session */
+.session-status {
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+}
+
+.session-status.active,
+.session-status.confirmé {
+  background-color: rgba(76, 175, 80, 0.15);
+  color: #2e7d32;
+}
+
+.session-status.pending,
+.session-status.en_attente {
+  background-color: rgba(255, 152, 0, 0.15);
+  color: #e65100;
+}
+
+.session-status.canceled,
+.session-status.annulé {
+  background-color: rgba(244, 67, 54, 0.15);
+  color: #c62828;
+}
+
+.session-status.completed,
+.session-status.terminé {
+  background-color: rgba(33, 150, 243, 0.15);
+  color: #0277bd;
+}
+
+/* Corps de la carte */
+.session-card-body {
+  padding: 1.25rem;
+}
+
+.session-description {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  color: var(--admin-text-light);
+  line-height: 1.5;
+}
+
+/* Détails de la session */
+.session-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.session-detail {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.85rem;
+}
+
+.session-detail .label {
+  color: var(--admin-text-light);
+  margin-bottom: 0.2rem;
+  font-weight: 500;
+}
+
+.session-detail .value {
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.session-detail .missing {
+  color: var(--admin-danger);
+  font-style: italic;
+}
+
+/* Actions et boutons */
+.session-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--medium-gray);
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: var(--light-gray);
+  color: var(--text-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--medium-gray);
+  transform: translateY(-2px);
+}
+
+.btn-danger {
+  background-color: rgba(244, 67, 54, 0.1);
+  color: #c62828;
+}
+
+.btn-danger:hover {
+  background-color: rgba(244, 67, 54, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Animation d'entrée des cartes */
+.session-card {
+  animation: fadeInUp 0.5s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Décalage de l'animation pour chaque carte */
+.session-card:nth-child(1) { animation-delay: 0.1s; }
+.session-card:nth-child(2) { animation-delay: 0.2s; }
+.session-card:nth-child(3) { animation-delay: 0.3s; }
+.session-card:nth-child(4) { animation-delay: 0.4s; }
+.session-card:nth-child(5) { animation-delay: 0.5s; }
+.session-card:nth-child(6) { animation-delay: 0.6s; }
+
+/* Responsive design */
+@media screen and (max-width: 992px) {
+  .session-cards-container {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .search-bar {
+    width: 100%;
+  }
+  
+  .session-cards-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .session-details {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Ajustements pour petits écrans */
+@media screen and (max-width: 480px) {
+  .admin-content {
+    padding: 1rem;
+  }
+  
+  .session-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}

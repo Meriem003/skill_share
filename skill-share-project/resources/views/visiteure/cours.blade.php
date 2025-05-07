@@ -17,7 +17,8 @@
             <h1>Nos cours disponibles</h1>
             <div class="search-bar">
                 <input type="text" placeholder="Rechercher un cours...">
-                <button type="submit"><i class="fas fa-search"></i></button>
+                <button type="submit"><span class="icon">🔍</span>
+                </button>
             </div>
         </div>
 

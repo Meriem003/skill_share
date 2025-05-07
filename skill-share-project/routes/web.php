@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\UtilisateursController;
-use App\Http\Controllers\admin\competenceController;
+use App\Http\Controllers\admin\CommentaireController;   
+use App\Http\Controllers\admin\sessionController;
 use App\Http\Controllers\etudiants\EtudiantController;
 use App\Http\Controllers\etudiants\bookingController;
 use App\Http\Controllers\etudiants\notificationsController;
@@ -54,8 +55,16 @@ Route::middleware(['auth'])->group(function () {
         Route::patch('/dashboard/utilisateur/{id}/reactiver', [UtilisateursController::class, 'reactiver'])->name('admin.utilisateurs.reactiver');
         Route::delete('/dashboard/utilisateur/{id}', [UtilisateursController::class, 'supprimer'])->name('admin.utilisateurs.supprimer');
 
-        // Sessions & Compétences
-        Route::get('/dashboard/competence', [competenceController::class, 'index'])->name('admin.competence');
+        // routes/web.php - Ajouter ces routes dans la section admin
+
+        // Routes pour les commentaires
+        Route::get('/dashboard/commentaire', [CommentaireController::class, 'index'])->name('admin.Commentaire');
+        Route::get('/dashboard/commentaire/search', [CommentaireController::class, 'search'])->name('admin.Commentaire.search');
+        Route::delete('/dashboard/commentaire/{id}', [CommentaireController::class, 'delete'])->name('admin.Commentaire.delete');
+        // Session
+        Route::get('/dashboard/session', [sessionController::class, 'index'])->name('admin.Session');
+        Route::get('/dashboard/session/{id}', [sessionController::class, 'show'])->name('admin.Session.show');
+        Route::delete('/dashboard/session/{id}', [sessionController::class, 'delete'])->name('admin.Session.delete');
     });
 
     // ==========================
