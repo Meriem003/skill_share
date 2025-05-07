@@ -110,7 +110,7 @@
                                     <span class="skill-count">{{ $skill->sessions_count }} sessions</span>
                                 </div>
                                 <div class="progress-bar">
-                                    <div class="progress" style="width: {{ $skill->percentage }}%;"></div>
+                                    <div class="progress" style="width:{{ $skill->percentage }}%;"></div>
                                 </div>
                             </div>
                             @empty
