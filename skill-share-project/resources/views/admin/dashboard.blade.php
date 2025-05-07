@@ -94,14 +94,6 @@
                 <div class="admin-section">
                     <div class="section-header">
                         <h2>Statistiques d'utilisation</h2>
-                        <div class="section-actions">
-                            <select id="stats-period">
-                                <option value="week">Cette semaine</option>
-                                <option value="month" selected>Ce mois</option>
-                                <option value="quarter">Ce trimestre</option>
-                                <option value="year">Cette année</option>
-                            </select>
-                        </div>
                     </div>
                     <div class="stats-grid">
                         <div class="stats-card">
@@ -113,10 +105,10 @@
                             </div>
                         </div>
                         <div class="stats-card">
-                            <h3>Sessions par catégorie</h3>
+                            <h3>Sessions par semaine</h3>
                             <div class="stats-chart">
                                 <div class="chart-placeholder" style="height: 200px; background-color: #f9f9f9; display: flex; align-items: center; justify-content: center;">
-                                    Graphique des sessions par catégorie
+                                    Graphique des sessions 
                                 </div>
                             </div>
                         </div>
@@ -171,10 +163,10 @@
                             </div>
                         </div>
                         <div class="stats-card">
-                            <h3>Répartition par campus</h3>
+                            <h3>Campus les plus populaires</h3>
                             <div class="stats-chart">
                                 <div class="chart-placeholder" style="height: 200px; background-color: #f9f9f9; display: flex; align-items: center; justify-content: center;">
-                                    Graphique de répartition par campus
+                                    Graphique de Campus les plus populaires
                                 </div>
                             </div>
                         </div>
