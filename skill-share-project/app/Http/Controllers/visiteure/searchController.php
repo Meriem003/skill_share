@@ -9,18 +9,16 @@ class SearchController extends Controller
 {
     public function index(Request $request)
     {
-        // Récupérer toutes les compétences
-        $teachingSkills = Skill::all(); // Représente les compétences à enseigner
-        $learningSkills = Skill::all(); // Représente les compétences à apprendre
+        
+        $teachingSkills = Skill::all(); 
+        $learningSkills = Skill::all(); 
 
-        // Récupérer les filtres de recherche
         $id = $request->input('id');
         $name = $request->input('name');
         $campus = $request->input('campus');
         $teachSkill = $request->input('teachSkill');
         $learnSkill = $request->input('learnSkill');
         
-        // Requête pour récupérer les utilisateurs
         $etudiants = User::where('role', 'etudiant')
             ->with(['etudiant.teachingSkills', 'etudiant.learningSkills'])
             ->when($id, function ($query, $id) {
@@ -42,9 +40,8 @@ class SearchController extends Controller
                     $subQuery->where('nom', $learnSkill);
                 });
             })
-            ->paginate(3); // Pagination avec 6 résultats par page
+            ->paginate(3); 
 
-        // Retourner la vue avec les résultats et les compétences
         return view('visiteure.search', compact('etudiants', 'teachingSkills', 'learningSkills'));
     }
 }

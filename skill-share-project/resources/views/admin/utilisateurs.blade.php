@@ -3,148 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>consuler utilisateur - SkillShare</title>
-    @vite (['resources/css/style.css']) 
+    <title>Gestion des Utilisateurs - SkillShare</title>
+    @vite(['resources/css/style.css']) 
     @vite(['resources/css/header.css'])
-    @vite (['resources/css/admin.css'])
+    @vite(['resources/css/admin.css'])
     @vite(['resources/css/users.css'])
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+@include('includes.header-admin')
+
 <main class="main-content" style="padding: 0;">
-        <div class="admin-container">
-        <div class="admin-sidebar">
-                <div class="admin-profile">
-                    <img src=".../../../profil.jpg" alt="Photo de profil" class="admin-avatar">
-                    <div class="admin-info">
-                        <h3>Admin</h3>
-                        <p>Administrateur</p>
+    <div class="admin-container">
+        <div class="admin-content">
+
+            <div class="admin-header">
+                <h1>Gestion des Sessions</h1>
+                    <div class="header-actions">
+                        <div class="search-bar">
+                            <input type="text" placeholder="Rechercher un commentaire...">
+                            <button type="submit"><i class="fas fa-search"></i></button>
+                        </div>
+                        <div class="filter-dropdown">
+                            <button class="filter-btn">
+                                <i class="fas fa-filter"></i>
+                                <span>Filtrer</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <nav class="admin-nav">
-                    <ul>
-                        <li>
-                            <a href="{{ route('admin.dashboard') }}">
-                                <span class="icon">📊</span>
-                                <span>Tableau de bord</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.utilisateurs') }}">
-                                <span class="icon">👥</span>
-                                <span>Utilisateurs</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.Session') }}">
-                                <span class="icon">📚</span>
-                                <span>Sessions</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.Commentaire') }}">
-                                <span class="icon">📝</span>
-                                <span>Commentaire</span>
-                            </a>
-                        </li>
-                        <li class="log">
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" style="background: none; border: none; display: flex; align-items: center; width: 100%; padding: 12px 20px; cursor: pointer; color: inherit; text-align: left;">
-                                    <span class="icon">🚪</span>
-                                    <span>Déconnexion</span>
-                                </button>
-                            </form>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            
-            <div class="admin-content">
                 <div class="admin-section">
-                    <div class="section-header">
-                        <h2>Gestion des utilisateurs</h2>
-                        <div class="section-actions">
-                            <div class="search-input-wrapper">
-                            <form method="GET" action="{{ route('admin.utilisateurs') }}">
-                            <input type="text" name="q" placeholder="Rechercher un utilisateur..." value="{{ request('q') }}">
-                            <button type="submit" class="search-btn">
-                                <span class="icon">🔍</span>
-                            </button>
-                        </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="users-table-container">
-                        <table class="users-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Email</th>
-                                    <th>Campus</th>
-                                    <th>Date d'inscription</th>
-                                    <th>Sessions</th>
-                                    <th>Statut</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-    @foreach ($etudiants as $etudiant)
-        <tr>
-            <td>#{{ $etudiant->id }}</td>
-            <td>{{ $etudiant->email }}</td>
-            <td>{{ $etudiant->campus }}</td>
-            <td>{{ $etudiant->created_at->format('d/m/Y') }}</td>
-            <td>{{ $etudiant->sessions_count ?? 0 }}</td>
-            <td>
-                <span class="status-badge {{ $etudiant->status == 'active' ? 'active' : 'inactive' }}">
-                    {{ ucfirst($etudiant->status) }}
-                </span>
-            </td>
-            <td class="actions-cell">
-                        {{-- Si l'utilisateur est actif, permettre de suspendre --}}
-                        @if ($etudiant->status === 'actif')
-                            <form method="POST" action="{{ route('admin.utilisateurs.suspendre', $etudiant->id) }}" style="display: inline-block;">
-                                @csrf
-                                @method('PATCH')
-                                <button class="action-btn suspend" type="submit">
-                                    <span class="icon">🔓</span> 
-                                </button>
-                            </form>
-                        @endif
+                <div class="users-table-container">
+                    <table class="users-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Email</th>
+                                <th>Campus</th>
+                                <th>Date d'inscription</th>
+                                <th>Sessions</th>
+                                <th>Statut</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($etudiants as $etudiant)
+                            <tr>
+                                <td>#{{ $etudiant->id }}</td>
+                                <td>{{ $etudiant->email }}</td>
+                                <td>{{ $etudiant->campus }}</td>
+                                <td>{{ $etudiant->created_at->format('d/m/Y') }}</td>
+                                <td>{{ $etudiant->sessions_count ?? 0 }}</td>
+                                <td>
+                                    <span class="status-badge {{ $etudiant->status == 'active' ? 'active' : 'inactive' }}">
+                                        {{ ucfirst($etudiant->status) }}
+                                    </span>
+                                </td>
+                                <td class="actions-cell">
+                                    {{-- Si l'utilisateur est actif, permettre de suspendre --}}
+                                    @if ($etudiant->status === 'actif')
+                                        <form method="POST" action="{{ route('admin.utilisateurs.suspendre', $etudiant->id) }}" style="display: inline-block;">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button class="action-btn suspend" type="submit" title="Suspendre l'utilisateur">
+                                                <i class="fas fa-lock"></i>
+                                            </button>
+                                        </form>
+                                    @endif
 
-                        {{-- Si l'utilisateur est suspendu, permettre de réactiver --}}
-                        @if ($etudiant->status === 'suspendu')
-                            <form method="POST" action="{{ route('admin.utilisateurs.reactiver', $etudiant->id) }}" style="display: inline-block;">
-                                @csrf
-                                @method('PATCH')
-                                <button class="action-btn reactivate" type="submit">
-                                    <span class="icon">🔒</span> 
-                                </button>
-                            </form>
-                        @endif
-                        <form method="POST" action="{{ route('admin.utilisateurs.supprimer', $etudiant->id) }}" style="display: inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button class="action-btn delete" type="submit">
-                                <span class="icon">🗑️</span> 
-                            </button>
-                        </form>
-                    </td>
-        </tr>
-    @endforeach
-</tbody>
-                        </table>
-                    </div>
-                    <div class="pagination">
-                        <div class="pagination-numbers">
-                            {!! $etudiants->links('pagination::bootstrap-4') !!}
-                        </div>
+                                    {{-- Si l'utilisateur est suspendu, permettre de réactiver --}}
+                                    @if ($etudiant->status === 'suspendu')
+                                        <form method="POST" action="{{ route('admin.utilisateurs.reactiver', $etudiant->id) }}" style="display: inline-block;">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button class="action-btn reactivate" type="submit" title="Réactiver l'utilisateur">
+                                                <i class="fas fa-unlock"></i>
+                                            </button>
+                                        </form>
+                                    @endif                                    
+                                    <form method="POST" action="{{ route('admin.utilisateurs.supprimer', $etudiant->id) }}" style="display: inline-block;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="action-btn delete" type="submit" title="Supprimer l'utilisateur">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="pagination">
+                    <div class="pagination-numbers">
+                        {!! $etudiants->links('pagination::bootstrap-4') !!}
                     </div>
                 </div>
             </div>
         </div>
-    </main>
-    @vite (['resources/js/main.css'])
-    @vite (['resources/js/admin.css']) 
+    </div>
+</main>
+
+@vite(['resources/js/main.js'])
+@vite(['resources/js/admin.js'])
 </body>
 </html>

@@ -19,7 +19,6 @@ class BookingController extends Controller
         $teacherId = $request->query('teacher_id');
         $teacher = null;
         
-        // Si un ID d'enseignant est fourni, récupérer ses informations
         if ($teacherId) {
             $teacher = Etudiant::with(['user', 'teachingSkills'])->find($teacherId);
             
@@ -29,10 +28,8 @@ class BookingController extends Controller
             }
         }
         
-        // Récupérer tous les étudiants qui ont des compétences à enseigner
+
         $teachers = Etudiant::whereHas('teachingSkills')->with('user')->get();
-        
-        // Récupérer toutes les compétences disponibles
         $skills = Skill::all();
         
         return view('student.booking', compact('teacher', 'teachers', 'skills'));
@@ -40,7 +37,7 @@ class BookingController extends Controller
     
     public function store(Request $request)
     {
-        // Valider les données du formulaire
+
         $validatedData = $request->validate([
             'teacher_id' => 'required|exists:etudiants,id',
             'skill_id' => 'required|exists:skills,id',
@@ -55,26 +52,26 @@ class BookingController extends Controller
             'autre_lieu' => 'nullable|string|max:255',
         ]);
         
-        // Récupérer l'étudiant connecté
+
         $etudiant = Auth::user()->etudiant;
         
-        // Créer une nouvelle session
+
         $session = new Session();
         $session->titre = $validatedData['titre'];
         $session->description = $validatedData['description'];
         
-        // Combiner la date et l'heure
+
         $dateHeure = Carbon::createFromFormat(
             'Y-m-d H:i', 
             $validatedData['date_session'] . ' ' . $validatedData['heure_session']
         );
         
-        // Ajouter les informations de base à la session
+
         $session->date_session = $dateHeure;
         $session->duree = $validatedData['duree'];
         $session->lieu_type = $validatedData['lieu_type'];
         
-        // Stocker les détails du lieu en fonction du type sélectionné
+
         switch ($validatedData['lieu_type']) {
             case 'campus':
                 $session->lieu_details = $validatedData['campus_salle'] ?? 'Campus (salle à confirmer)';
@@ -87,20 +84,18 @@ class BookingController extends Controller
                 break;
         }
         
-        // Statut par défaut: en attente
+
         $session->statut = 'en_attente';
         
-        // ID de l'étudiant qui enseigne et de l'étudiant qui apprend
+
         $session->teacher_id = $validatedData['teacher_id'];
         $session->student_id = $etudiant->id;
         
-        // ID de la compétence concernée
+
         $session->skill_id = $validatedData['skill_id'];
-        
-        // Enregistrer la session
+
         $session->save();
-        
-        // Rediriger avec un message de succès
+
         return redirect()->route('etudiant.dashboard')
             ->with('success', 'Votre demande de session a été envoyée avec succès. Vous serez notifié lorsque l\'enseignant y répondra.');
     }
@@ -108,8 +103,7 @@ class BookingController extends Controller
     public function show($id)
     {
         $session = Session::with(['teacher.user', 'student.user', 'skill'])->findOrFail($id);
-        
-        // Vérifier que l'utilisateur connecté est bien lié à cette session
+
         $etudiant = Auth::user()->etudiant;
         if ($session->teacher_id !== $etudiant->id && $session->student_id !== $etudiant->id) {
             return redirect()->route('etudiant.dashboard')
@@ -123,35 +117,26 @@ class BookingController extends Controller
     {
         $session = Session::findOrFail($id);
         $etudiant = Auth::user()->etudiant;
-        
-        // Vérifier que l'utilisateur est l'enseignant de cette session
+
         if ($session->teacher_id !== $etudiant->id) {
             return redirect()->route('etudiant.dashboard')
                 ->with('error', 'Vous n\'êtes pas autorisé à modifier cette session.');
         }
         
-        // Valider les données du formulaire
         $validatedData = $request->validate([
             'statut' => 'required|string|in:accepte,refuse',
             'commentaire' => 'nullable|string',
             'lieu_details' => 'nullable|string|max:255',
         ]);
-        
-        // Mettre à jour le statut de la session
         $session->statut = $validatedData['statut'];
         
         if (isset($validatedData['commentaire'])) {
             $session->commentaire_enseignant = $validatedData['commentaire'];
         }
-        
-        // Mettre à jour les détails du lieu si fournis
         if (isset($validatedData['lieu_details'])) {
             $session->lieu_details = $validatedData['lieu_details'];
         }
-        
         $session->save();
-        
-        // Rediriger avec un message de succès
         return redirect()->route('etudiant.dashboard')
             ->with('success', 'La session a été mise à jour avec succès.');
     }
@@ -160,25 +145,20 @@ class BookingController extends Controller
     {
         $session = Session::findOrFail($id);
         $etudiant = Auth::user()->etudiant;
-        
-        // Vérifier que l'utilisateur est lié à cette session
         if ($session->teacher_id !== $etudiant->id && $session->student_id !== $etudiant->id) {
             return redirect()->route('etudiant.dashboard')
                 ->with('error', 'Vous n\'êtes pas autorisé à modifier cette session.');
         }
-        
-        // Vérifier que la session est acceptée
+
         if ($session->statut !== 'accepte') {
             return redirect()->route('etudiant.dashboard')
                 ->with('error', 'Cette session n\'est pas en cours.');
         }
-        
-        // Marquer la session comme terminée
+
         $session->statut = 'terminee';
         $session->date_fin = Carbon::now();
         $session->save();
-        
-        // Ajouter la relation dans sessions_suivies
+
         DB::table('sessions_suivies')->insert([
             'etudiant_id' => $session->student_id,
             'session_id' => $session->id,
@@ -186,8 +166,6 @@ class BookingController extends Controller
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);
-        
-        // Rediriger avec un message de succès
         return redirect()->route('etudiant.dashboard')
             ->with('success', 'La session a été marquée comme terminée.');
     }

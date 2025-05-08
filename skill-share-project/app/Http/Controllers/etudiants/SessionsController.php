@@ -11,14 +11,10 @@ use App\Http\Controllers\Controller;
 
 class SessionsController extends Controller
 {
-    /**
-     * Affiche la liste de toutes les sessions de l'utilisateur
-     */
     public function index()
     {
         $etudiant = Auth::user()->etudiant;
         
-        // Récupérer toutes les sessions où l'utilisateur est impliqué (comme enseignant ou étudiant)
         $sessions = Session::where(function ($query) use ($etudiant) {
             $query->where('teacher_id', $etudiant->id)
                   ->orWhere('student_id', $etudiant->id);
@@ -29,26 +25,20 @@ class SessionsController extends Controller
         
         return view('student.session', compact('sessions'));
     }
-    
-    /**
-     * Annule une session (pour les étudiants ou les enseignants)
-     */
+
     public function cancel($id)
     {
         $session = Session::findOrFail($id);
         $etudiant = Auth::user()->etudiant;
         
-        // Vérifier que l'utilisateur est impliqué dans cette session
         if ($session->teacher_id != $etudiant->id && $session->student_id != $etudiant->id) {
             return redirect()->back()->with('error', 'Vous n\'êtes pas autorisé à annuler cette session.');
         }
         
-        // Vérifier que la session n'est pas déjà terminée ou annulée
         if (in_array($session->statut, ['terminee', 'annule'])) {
             return redirect()->back()->with('error', 'Cette session ne peut plus être annulée.');
         }
         
-        // Vérifier que la date de la session n'est pas passée
         if (Carbon::parse($session->date_session)->isPast()) {
             return redirect()->back()->with('error', 'Vous ne pouvez pas annuler une session passée.');
         }
@@ -58,10 +48,7 @@ class SessionsController extends Controller
         
         return redirect()->back()->with('success', 'La session a été annulée avec succès.');
     }
-    
-    /**
-     * Affiche le formulaire de création d'évaluation
-     */
+
     public function createEvaluation($sessionId)
     {
         $session = Session::with(['teacher.user', 'student.user', 'skill'])
@@ -69,17 +56,17 @@ class SessionsController extends Controller
         
         $etudiant = Auth::user()->etudiant;
         
-        // Vérifier que l'utilisateur est impliqué dans cette session
+
         if ($session->teacher_id != $etudiant->id && $session->student_id != $etudiant->id) {
             return redirect()->route('sessions.index')->with('error', 'Vous n\'êtes pas autorisé à évaluer cette session.');
         }
         
-        // Vérifier que la session est terminée
+        
         if ($session->statut != 'terminee') {
             return redirect()->route('sessions.index')->with('error', 'Vous ne pouvez évaluer que les sessions terminées.');
         }
         
-        // Vérifier si une évaluation existe déjà
+        
         $existingEvaluation = Evaluation::where('session_id', $sessionId)
                                         ->where('auteur_id', $etudiant->id)
                                         ->first();
@@ -90,16 +77,13 @@ class SessionsController extends Controller
         
         return view('student.évaluer', compact('session'));
     }
-    
-    /**
-     * Enregistre une nouvelle évaluation
-     */
+
     public function storeEvaluation(Request $request, $sessionId)
     {
         $session = Session::findOrFail($sessionId);
         $etudiant = Auth::user()->etudiant;
         
-        // Vérifications similaires à createEvaluation
+        
         if ($session->teacher_id != $etudiant->id && $session->student_id != $etudiant->id) {
             return redirect()->route('sessions.index')->with('error', 'Vous n\'êtes pas autorisé à évaluer cette session.');
         }
@@ -115,17 +99,15 @@ class SessionsController extends Controller
         if ($existingEvaluation) {
             return redirect()->route('sessions.index')->with('error', 'Vous avez déjà évalué cette session.');
         }
-        
-        // Validation des données
+
         $validated = $request->validate([
             'note' => 'required|integer|min:1|max:5',
             'commentaire' => 'required|string|min:10|max:500',
         ]);
         
-        // Déterminer qui est évalué
         $evaluatedId = ($etudiant->id == $session->teacher_id) ? $session->student_id : $session->teacher_id;
         
-        // Créer l'évaluation
+
         $evaluation = new Evaluation();
         $evaluation->session_id = $sessionId;
         $evaluation->auteur_id = $etudiant->id;
@@ -137,21 +119,15 @@ class SessionsController extends Controller
         
         return redirect()->route('sessions.index')->with('success', 'Votre évaluation a été enregistrée avec succès.');
     }
-    
-    /**
-     * Accepte une demande de session (pour l'enseignant)
-     */
     public function accept($id)
     {
         $session = Session::findOrFail($id);
         $etudiant = Auth::user()->etudiant;
         
-        // Vérifier que l'utilisateur est l'enseignant de cette session
         if ($session->teacher_id != $etudiant->id) {
             return redirect()->back()->with('error', 'Vous n\'êtes pas autorisé à accepter cette session.');
         }
         
-        // Vérifier que la session est en attente
         if ($session->statut != 'en_attente') {
             return redirect()->back()->with('error', 'Cette session ne peut pas être acceptée.');
         }
@@ -161,21 +137,16 @@ class SessionsController extends Controller
         
         return redirect()->back()->with('success', 'La session a été acceptée avec succès.');
     }
-    
-    /**
-     * Refuse une demande de session (pour l'enseignant)
-     */
+
     public function reject($id)
     {
         $session = Session::findOrFail($id);
         $etudiant = Auth::user()->etudiant;
-        
-        // Vérifier que l'utilisateur est l'enseignant de cette session
+
         if ($session->teacher_id != $etudiant->id) {
             return redirect()->back()->with('error', 'Vous n\'êtes pas autorisé à refuser cette session.');
         }
-        
-        // Vérifier que la session est en attente
+
         if ($session->statut != 'en_attente') {
             return redirect()->back()->with('error', 'Cette session ne peut pas être refusée.');
         }
@@ -185,21 +156,14 @@ class SessionsController extends Controller
         
         return redirect()->back()->with('success', 'La session a été refusée.');
     }
-    
-    /**
-     * Marque une session comme terminée
-     */
     public function complete($id)
     {
         $session = Session::findOrFail($id);
         $etudiant = Auth::user()->etudiant;
-        
-        // Vérifier que l'utilisateur est impliqué dans cette session
+
         if ($session->teacher_id != $etudiant->id && $session->student_id != $etudiant->id) {
             return redirect()->back()->with('error', 'Vous n\'êtes pas autorisé à terminer cette session.');
         }
-        
-        // Vérifier que la session est acceptée
         if ($session->statut != 'accepte') {
             return redirect()->back()->with('error', 'Seules les sessions acceptées peuvent être marquées comme terminées.');
         }
@@ -209,10 +173,6 @@ class SessionsController extends Controller
         
         return redirect()->back()->with('success', 'La session a été marquée comme terminée.');
     }
-    
-    /**
-     * Affiche le formulaire de création d'une session
-     */
     public function create($teacherId = null)
     {
         $skills = Skill::orderBy('nom')->get();
@@ -220,15 +180,9 @@ class SessionsController extends Controller
         
         return view('sessions.create', compact('skills', 'teacherId'));
     }
-    
-    /**
-     * Enregistre une nouvelle session
-     */
     public function store(Request $request)
     {
         $etudiant = Auth::user()->etudiant;
-        
-        // Validation des données
         $validated = $request->validate([
             'titre' => 'required|string|max:100',
             'teacher_id' => 'required|exists:etudiants,id',
@@ -240,11 +194,10 @@ class SessionsController extends Controller
             'description' => 'nullable|string|max:500',
         ]);
         
-        // Créer la nouvelle session
         $session = new Session();
         $session->titre = $validated['titre'];
         $session->teacher_id = $validated['teacher_id'];
-        $session->student_id = $etudiant->id; // L'utilisateur actuel est l'étudiant
+        $session->student_id = $etudiant->id; 
         $session->skill_id = $validated['skill_id'];
         $session->date_session = $validated['date_session'];
         $session->duree = $validated['duree'];
@@ -257,10 +210,7 @@ class SessionsController extends Controller
         
         return redirect()->route('sessions.index')->with('success', 'Votre demande de session a été envoyée avec succès.');
     }
-    
-    /**
-     * Affiche les détails d'une session spécifique
-     */
+
     public function show($id)
     {
         $session = Session::with(['teacher.user', 'student.user', 'skill', 'evaluations.auteur.user'])
@@ -268,7 +218,6 @@ class SessionsController extends Controller
         
         $etudiant = Auth::user()->etudiant;
         
-        // Vérifier que l'utilisateur est impliqué dans cette session
         if ($session->teacher_id != $etudiant->id && $session->student_id != $etudiant->id) {
             return redirect()->route('sessions.index')->with('error', 'Vous n\'êtes pas autorisé à voir cette session.');
         }

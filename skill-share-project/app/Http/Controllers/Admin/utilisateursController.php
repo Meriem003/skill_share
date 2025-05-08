@@ -8,22 +8,16 @@ use Illuminate\Http\Request;
 
 class utilisateursController extends Controller
 {
-    // Afficher la liste des utilisateurs
     public function index(Request $request)
     {
-        // Récupérer le paramètre de recherche
         $query = $request->input('q');
-
-        // Récupérer les utilisateurs avec la pagination et la recherche
         $etudiants = User::where('role', 'etudiant')
             ->when($query, function ($queryBuilder, $searchTerm) {
                 $queryBuilder->where('email', 'LIKE', '%' . $searchTerm . '%')
                              ->orWhere('fullname', 'LIKE', '%' . $searchTerm . '%')
                              ->orWhere('campus', 'LIKE', '%' . $searchTerm . '%');
             })
-            ->paginate(6); // Pagination avec 6 résultats par page
-
-        // Retourner la vue avec les données
+            ->paginate(6);
         return view('admin.utilisateurs', compact('etudiants'));
     }
 

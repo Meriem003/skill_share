@@ -30,48 +30,36 @@ class AuthController extends Controller
             'learning_skills' => 'required|array|min:1',
             'terms' => 'required|accepted',
         ]);
-
-        // Création de l'utilisateur (notez que le champ est 'Fullname' avec un F majuscule selon votre modèle)
         $user = User::create([
             'Fullname' => $request->fullname,
             'email' => $request->email,
-            'password' => Hash::make($request->password), // Déjà hashé grâce à votre mutateur dans le modèle
+            'password' => Hash::make($request->password),
             'campus' => $request->campus,
             'role' => 'etudiant',
         ]);
 
-        // Création du profil étudiant
         $etudiant = Etudiant::create([
             'user_id' => $user->id,
-            'rang' => 1 // Rang initial
+            'rang' => 1
         ]);
-
-        // Enregistrement des compétences à enseigner
         if ($request->has('teaching_skills')) {
             foreach ($request->teaching_skills as $skill) {
                 $etudiant->teachingSkills()->attach($skill);
             }
         }
-
-        // Enregistrement des compétences à apprendre
         if ($request->has('learning_skills')) {
             foreach ($request->learning_skills as $skill) {
                 $etudiant->learningSkills()->attach($skill);
             }
         }
-
-        // Connexion automatique
         Auth::login($user);
-
         return redirect()->route('etudiant.dashboard');            }
-
             public function showLogin()
             {
-                return view('auth.login');  // Assure-toi que tu as la vue 'auth.login'
+                return view('auth.login');
             }
             public function login(Request $request)
             {
-                // Validation des données de connexion
                 $credentials = $request->validate([
                     'email' => 'required|email',
                     'password' => 'required',
@@ -79,15 +67,11 @@ class AuthController extends Controller
             
                 if (Auth::attempt($credentials)) {
                     $user = Auth::user();
-            
-                    // Redirection vers le dashboard en fonction du rôle
                     if ($user->role === 'admin') {
                         return redirect()->route('admin.dashboard');
                     } elseif ($user->role === 'etudiant') {
                         return redirect()->route('etudiant.dashboard');
                     }
-            
-                    // Si l'utilisateur n'a pas de rôle ou est un autre type d'utilisateur
                     return redirect()->route('home');
                 }
             
@@ -95,9 +79,6 @@ class AuthController extends Controller
                     'email' => 'Identifiants invalides',
                 ]);
             }
-            
-            
-
             public function logout(Request $request)
             {
                 Auth::logout();

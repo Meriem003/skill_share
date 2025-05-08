@@ -11,7 +11,6 @@ class CoursController extends Controller
 {
     public function index()
     {
-        // Logique pour afficher la liste des cours
         return view('visiteure.cours');
     }
 }

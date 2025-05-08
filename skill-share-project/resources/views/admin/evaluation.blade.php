@@ -8,118 +8,86 @@
     @vite(['resources/css/header.css'])
     @vite(['resources/css/admin.css'])
     @vite(['resources/css/comments.css'])
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+@include('includes.header-admin')
+
     <main class="main-content" style="padding: 0;">
         <div class="admin-container">
-            <div class="admin-sidebar">
-                <div class="admin-profile">
-                    <img src=".../../../profil.jpg" alt="Photo de profil" class="admin-avatar">
-                    <div class="admin-info">
-                        <h3>Admin</h3>
-                        <p>Administrateur</p>
-                    </div>
-                </div>
-                <nav class="admin-nav">
-                    <ul>
-                        <li>
-                            <a href="{{ route('admin.dashboard') }}">
-                                <span class="icon">📊</span>
-                                <span>Tableau de bord</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.utilisateurs') }}">
-                                <span class="icon">👥</span>
-                                <span>Utilisateurs</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.Session') }}">
-                                <span class="icon">📚</span>
-                                <span>Sessions</span>
-                            </a>
-                        </li>
-                        <li class="active">
-                            <a href="{{ route('admin.Commentaire') }}">
-                                <span class="icon">📝</span>
-                                <span>Commentaire</span>
-                            </a>
-                        </li>
-                        <li class="log">
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" style="background: none; border: none; display: flex; align-items: center; width: 100%; padding: 12px 20px; cursor: pointer; color: inherit; text-align: left;">
-                                    <span class="icon">🚪</span>
-                                    <span>Déconnexion</span>
-                                </button>
-                            </form>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            
             <div class="admin-content">
                 <div class="admin-header">
-                    <h1>Consulter les Commentaires</h1>
-                    <div class="search-bar">
-                <input type="text" placeholder="Rechercher un cours...">
-                <button type="submit"><span class="icon">🔍</span>
-                </button>
-            </div>
+                <h1>Gestion des Sessions</h1>
+                    <div class="header-actions">
+                        <div class="search-bar">
+                            <input type="text" placeholder="Rechercher un commentaire...">
+                            <button type="submit"><i class="fas fa-search"></i></button>
+                        </div>
+                        <div class="filter-dropdown">
+                            <button class="filter-btn">
+                                <i class="fas fa-filter"></i>
+                                <span>Filtrer</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
-
-                
                 <div class="comments-container">
-                @forelse ($evaluations as $evaluation)
-    <div class="comment-card">
-        <div class="comment-header">
-            <div class="comment-rating">
-                @for ($i = 1; $i <= 5; $i++)
-                    @if ($i <= $evaluation->note)
-                        ★
-                    @else
-                        ☆
-                    @endif
-                @endfor
-                ({{ $evaluation->note }}/5)
-            </div>
-            <div class="comment-date">
-                {{ $evaluation->created_at->format('d/m/Y') }}
-            </div>
-        </div>
-        
-        <div class="comment-session">
-            {{ $evaluation->session->titre }}
-        </div>
-        
-        <div class="comment-users">
-            <div>De: {{ $evaluation->auteur->user->Fullname }}</div>
-            <div>Pour: {{ $evaluation->evalue->user->Fullname }}</div>
-        </div>
-        
-        <div class="comment-content">
-            {{ $evaluation->commentaire }}
-        </div>
-        
-        <div class="comment-actions" style="margin-top: 10px; text-align: right;">
-            <form action="{{ route('admin.Commentaire.delete', $evaluation->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire?')">
-                @csrf
-                @method('DELETE')
-                <button type="submit" style="background: none; border: none; color: #f44336; cursor: pointer;">
-                    <i style="margin-right: 3px;">🗑️</i> Supprimer
-                </button>
-            </form>
-        </div>
-    </div>
-@empty
-    <div class="empty-state">
-        <p>Aucune évaluation trouvée.</p>
-    </div>
-@endforelse
+                    @forelse ($evaluations as $evaluation)
+                        <div class="comment-card" data-rating="{{ $evaluation->note }}">
+                            <div class="comment-header">
+                                <div class="comment-rating">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        @if ($i <= $evaluation->note)
+                                            <span class="star"><i class="fas fa-star"></i></span>
+                                        @else
+                                            <span class="star"><i class="far fa-star"></i></span>
+                                        @endif
+                                    @endfor                                </div>
+                                <div class="comment-date">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    {{ $evaluation->created_at->format('d/m/Y') }}
+                                </div>
+                            </div>
+                            
+                            <div class="comment-body">                                
+                                <div class="comment-users">
+                                    <div class="comment-user">
+                                        <span class="label">Évaluateur</span>
+                                        <span class="value">{{ $evaluation->auteur->user->fullname }}</span>
+                                    </div>
+                                    <div class="comment-user">
+                                        <span class="label">Évalué</span>
+                                        <span class="value">{{ $evaluation->evalue->user->fullname }}</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="comment-content">
+                                    {{ $evaluation->commentaire }}
+                                </div>
+                                
+                                <div class="comment-actions">
+                                    <form action="{{ route('admin.Commentaire.delete', $evaluation->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce commentaire?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="delete-btn">
+                                            <i class="fas fa-trash-alt"></i> Supprimer
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="empty-state">
+                            <div class="empty-icon">
+                                <i class="fas fa-comment-slash"></i>
+                            </div>
+                            <h3>Aucune évaluation trouvée</h3>
+                            <p>Il n'y a pas encore d'évaluations dans le système.</p>
+                        </div>
+                    @endforelse
                 </div>
                 
-                <div class="pagination">
+                <div class="pagination-container">
                     {{ $evaluations->links() }}
                 </div>
             </div>

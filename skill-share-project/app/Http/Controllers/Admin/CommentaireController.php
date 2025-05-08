@@ -11,26 +11,18 @@ class CommentaireController extends Controller
 {
     public function index()
     {
-        // Récupérer toutes les évaluations avec pagination et relations 
         $evaluations = Evaluation::with(['session', 'auteur.user', 'evalue.user'])
             ->orderBy('created_at', 'desc')
             ->paginate(12);
 
-        // Retourner la vue avec les commentaires
         return view('admin.evaluation', compact('evaluations'));
     }
-
-    // Méthode pour chercher des commentaires spécifiques
     public function search(Request $request)
     {
         $query = Evaluation::with(['session', 'auteur.user', 'evalue.user']);
-
-        // Filtrer par note si spécifié
         if ($request->filled('note')) {
             $query->where('note', $request->note);
         }
-        
-        // Recherche par contenu de commentaire
         if ($request->filled('search')) {
             $searchTerm = $request->search;
             $query->where('commentaire', 'LIKE', "%{$searchTerm}%")
@@ -53,8 +45,6 @@ class CommentaireController extends Controller
         
         return view('admin.evaluation', compact('evaluations'));
     }
-    
-    // Méthode pour supprimer un commentaire si nécessaire
     public function delete($id)
     {
         $evaluation = Evaluation::findOrFail($id);

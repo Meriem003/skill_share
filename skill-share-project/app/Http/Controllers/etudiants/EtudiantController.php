@@ -13,13 +13,10 @@ class EtudiantController extends Controller
     public function index()
     {
         $etudiant = Auth::user()->etudiant;
-    
-        // Récupération des tâches
         $taches = Tache::whereHas('todoListe', function ($query) use ($etudiant) {
             $query->where('etudiant_id', $etudiant->id);
         })->get();
-    
-        // Récupération des sessions à venir
+
         $sessions = Session::where(function ($query) use ($etudiant) {
             $query->where('student_id', $etudiant->id)
                   ->orWhere('teacher_id', $etudiant->id);
@@ -29,7 +26,6 @@ class EtudiantController extends Controller
         ->take(3)
         ->get();
         
-        // Statistiques pour le dashboard-overview
         $stats = [
             'sessions_enseignees' => Session::where('teacher_id', $etudiant->id)
                                     ->where('statut', 'terminee')

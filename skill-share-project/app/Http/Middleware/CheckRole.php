@@ -21,7 +21,6 @@ class CheckRole
         if (Auth::check()) {
             $user = Auth::user();
 
-            // Vérification directe du rôle dans la base de données
             if ($role === 'admin' && $user->role !== 'admin') {
                 abort(403, 'Accès interdit');
             }
@@ -30,7 +29,7 @@ class CheckRole
                 abort(403, 'Accès interdit');
             }
         } else {
-            return redirect()->route('login'); // Redirige vers la page de connexion si l'utilisateur n'est pas authentifié
+            return redirect()->route('login'); 
         }
 
         return $next($request);
