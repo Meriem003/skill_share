@@ -54,7 +54,7 @@
                                 <td>{{ $etudiant->email }}</td>
                                 <td>{{ $etudiant->campus }}</td>
                                 <td>{{ $etudiant->created_at->format('d/m/Y') }}</td>
-                                <td>{{ $etudiant->sessions_count ?? 0 }}</td>
+                                <td>{{ $etudiant->sessions_count?? 0 }}</td>
                                 <td>
                                     <span class="status-badge {{ $etudiant->status == 'active' ? 'active' : 'inactive' }}">
                                         {{ ucfirst($etudiant->status) }}

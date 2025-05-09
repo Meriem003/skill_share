@@ -63,10 +63,9 @@
                         <div class="select-wrapper">
                             <select id="campus" name="campus" required>
                                 <option value="">Sélectionnez votre campus</option>
-                                <option value="paris">Paris</option>
-                                <option value="lyon">Lyon</option>
-                                <option value="marseille">Marseille</option>
-                                <option value="bordeaux">Bordeaux</option>
+                                <option value="nador">nador</option>
+                                <option value="safi">safi </option>
+                                <option value="youssoufia ">youssoufia </option>
                             </select>
                             <span class="select-arrow"></span>
                         </div>

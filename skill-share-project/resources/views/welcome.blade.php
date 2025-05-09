@@ -18,8 +18,8 @@
                     <h1>Partagez vos compétences, développez votre réseau</h1>
                     <p>SkillShare est une plateforme qui permet aux étudiants de partager leurs compétences et d'apprendre les uns des autres.</p>
                     <div class="hero-buttons">
-                        <a href="{{ route('register') }}" class="btn btn-primary">S'inscrire</a>
-                        <a href="{{ route('login') }}" class="btn btn-secondary">Se connecter</a>
+                        <a href="{{ route('register') }}" class="btn btn-primary" style="background-color:rgb(255, 243, 243); font-weight: 600;">S'inscrire</a>
+                        <a href="{{ route('login') }}" class="btn btn-secondary" style="background-color: rgb(255, 243, 243);   font-weight: 600;">Se connecter</a>
                     </div>
                 </div>
                 <div class="hero-image">

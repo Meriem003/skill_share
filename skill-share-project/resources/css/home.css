@@ -1,6 +1,9 @@
 .hero {
-  padding: 80px 0;
-  background-color: var(--white);
+  padding: 90px 0;
+  background-image: url("../../public/pastel pink coquette deskop wallpaper version 3.jpeg");
+  background-size: cover; /* Pour que l'image couvre tout l'écran */
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .hero .container {

@@ -117,7 +117,7 @@ p {
 }
 
 .btn-primary {
-  background-color: var(--primary);
+  background-color: #f0dada;
   color: var(--black);
   box-shadow: 0 2px 8px rgba(232, 169, 169, 0.3); /* Ombre subtile */
 }
@@ -130,7 +130,7 @@ p {
 }
 
 .btn-secondary {
-  background-color: var(--white);
+  background-color: #f0dada;
   color: var(--black);
   border: 1px solid var(--medium-gray);
 }
